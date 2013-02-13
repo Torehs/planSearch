@@ -12,13 +12,12 @@
         android:layout_centerVertical="true"
         android:text="@string/hello_world" />
 
-    <CheckBox
-        android:id="@+id/checkBox1"
-        android:layout_width="wrap_content"
+    <SeekBar
+        android:id="@+id/seekBar1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/textView1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="74dp"
-        android:text="CheckBox" />
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="83dp" />
 
 </RelativeLayout>
