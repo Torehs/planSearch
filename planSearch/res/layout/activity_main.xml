@@ -3,9 +3,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    class="com.google.android.gms.maps.MapFragment" >
-   
+    class="com.google.android.gms.maps.MapFragment"
+    android:gravity="top"
+    tools:context=".MainActivity" >
+
+    <Button
+        android:id="@+id/create"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/join"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="42dp"
+        android:text="Create"
+        android:onClick="createClick"  />
+
+    <Button
+        android:id="@+id/join"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="Join"
+        android:onClick="joinClick"  />
 
 </RelativeLayout>
 
