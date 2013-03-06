@@ -21,10 +21,11 @@
         android:id="@+id/join"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="Join"
-        android:onClick="joinClick"  />
+        android:layout_alignLeft="@+id/create"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="180dp"
+        android:onClick="joinClick"
+        android:text="Join" />
 
 </RelativeLayout>
 

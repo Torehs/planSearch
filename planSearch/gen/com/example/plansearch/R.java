@@ -21,14 +21,17 @@ public final class R {
         public static final int editText3=0x7f070005;
         public static final int editText4=0x7f070006;
         public static final int join=0x7f070001;
-        public static final int menu_settings=0x7f070008;
+        public static final int menu_settings=0x7f07000a;
         public static final int textView1=0x7f070002;
+        public static final int textView2=0x7f070008;
+        public static final int textView3=0x7f070009;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int create_main=0x7f030001;
         public static final int join_main=0x7f030002;
-        public static final int team_main=0x7f030003;
+        public static final int reg_user_main=0x7f030003;
+        public static final int team_main=0x7f030004;
     }
     public static final class menu {
         public static final int activity_main=0x7f060000;
