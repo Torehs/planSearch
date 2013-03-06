@@ -17,7 +17,7 @@ public class Join extends Activity{
 	
 	public void joinClick(View view)
 	{
-		Intent i = new Intent(this,Team.class); 
+		Intent i = new Intent(this,Menu.class); 
 		startActivity(i); 
 	}
 

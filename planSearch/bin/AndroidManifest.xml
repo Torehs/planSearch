@@ -9,14 +9,13 @@
         android:targetSdkVersion="17" />
 
     <application
-        
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.example.plansearch.MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,15 +24,27 @@
         </activity>
         <activity
             android:name="com.example.plansearch.Create"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name="com.example.plansearch.Join"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name="com.example.plansearch.Team"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.example.plansearch.Info"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.example.plansearch.Menu"
+            android:label="@string/title_activity_menu" >
+        </activity>
+        <activity
+            android:name="com.example.plansearch.Status"
+            android:label="@string/title_activity_status" >
         </activity>
     </application>
 
