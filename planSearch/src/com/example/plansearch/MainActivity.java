@@ -30,4 +30,10 @@ public class MainActivity extends Activity {
 		startActivity(i); 
 	}
 
+	public void mapClick(View view)
+	{
+		System.out.println("map click");
+		Intent i = new Intent(this,MapActivity.class); 
+		startActivity(i); 
+	}
 }
