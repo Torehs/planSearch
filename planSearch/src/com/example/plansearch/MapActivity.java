@@ -14,7 +14,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.*;
 
 public class MapActivity extends FragmentActivity {
-
+//ett eller annet tull
 	GoogleMap map = null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
