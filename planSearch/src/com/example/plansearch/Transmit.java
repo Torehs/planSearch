@@ -18,9 +18,44 @@ import org.json.JSONObject;
 
 public class Transmit {
 	
+	public int createOperation(String operationName, String operationPassword) {
+		// Build JSONObject Transmit
+		JSONObject jsonT = new JSONObject();
+		try {
+			jsonT.put("operationName", operationName);
+			jsonT.put("operationPassword", operationPassword);
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// Build JSONObject Receive
+		JSONObject jsonR = new JSONObject();
+		
+		try {
+			jsonR = transmitAndReceive(jsonT);
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// Decode JSONObject
+		int operationID = 0;
+		try {
+			operationID = jsonR.getInt("operationID");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return operationID;
+	}
 	
-	
-	public String transmitAndReceive(JSONObject jsonT) throws ClientProtocolException, IOException {
+	public JSONObject transmitAndReceive(JSONObject jsonT) throws ClientProtocolException, IOException {
 		String myUri = "http://folk.ntnu.no/torehavs/transfer.php";
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpPost httppost = new HttpPost(myUri);
@@ -39,7 +74,7 @@ public class Transmit {
 
 		String bodyHtml = EntityUtils.toString(response.getEntity());
 		
-		JSONObject jsonR;
+		JSONObject jsonR = new JSONObject();;
 		try {
 			jsonR = new JSONObject(bodyHtml);
 		} catch (JSONException e) {
@@ -47,7 +82,7 @@ public class Transmit {
 			e.printStackTrace();
 		}
 		
-		return bodyHtml;
+		return jsonR;
 	}
 
 }
