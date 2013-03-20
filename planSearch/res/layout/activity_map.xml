@@ -16,15 +16,24 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-	    <TextView
-	        android:text="Hello world"
+        <Button
+            android:text="Info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="infoBtnClick"
+            />
+	    <Button
+	        android:text="Call"
 	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"/>
+	        android:layout_height="wrap_content"
+	        android:onClick="callBtnClick"
+	         />
 	    <Button
 	        android:id="@+id/mapTypeBtn"
 	        android:text="Map Type"
 	        android:layout_height="wrap_content"
 	        android:layout_width="wrap_content"
 	        android:onClick="mapTypeMenu"/>
+	    
     </LinearLayout>
 </LinearLayout>

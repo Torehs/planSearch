@@ -6,15 +6,16 @@ import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.PolygonOptions;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.view.*;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.*;
 
 public class MapActivity extends FragmentActivity {
-//ett eller annet tull
 	GoogleMap map = null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,15 +50,21 @@ public class MapActivity extends FragmentActivity {
 		map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(63.44,10.4)));
 		map.moveCamera(CameraUpdateFactory.zoomBy(12f));
 	}
-	
 	@Override  
     public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {  
     super.onCreateContextMenu(menu, v, menuInfo);  
-        menu.setHeaderTitle("Map Type"); 
+        menu.setHeaderTitle("Map Type");
+        int curType = map.getMapType();
         for (int i = 0; i < mapTypes.length;i++)
         {
         	MapType mt = mapTypes[i];
-        	menu.add(0, mt.MapType, 0, mt.Name);
+        	MenuItem item = menu.add(0, mt.MapType, 0, mt.Name);
+        	
+        	if (curType == mt.MapType)
+        	{
+        		item.setCheckable(true);
+        		item.setChecked(true);
+        	}
         }
         //menu.add(0, (int)MapType.Satellite, 0, "Satellite");  
     } 
@@ -79,6 +86,21 @@ public class MapActivity extends FragmentActivity {
 	public void mapTypeMenu(View v)
 	{
 		this.openContextMenu(v);
+	}
+	
+	
+	public void callBtnClick(View v)
+	{
+		String phno="tel:47027635";
+
+	    Intent i=new Intent(Intent.ACTION_CALL,Uri.parse(phno));
+	    startActivity(i);
+	}
+	
+	public void infoBtnClick(View v)
+	{
+		Intent i = new Intent(this,Menu.class);
+		startActivity(i);
 	}
 	
 	@Override  
