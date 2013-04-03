@@ -144,25 +144,26 @@ containing a value of this type.
         public static final int create=0x7f040004;
         public static final int editText1=0x7f04000d;
         public static final int editText2=0x7f04000f;
-        public static final int editText3=0x7f04001e;
+        public static final int editText3=0x7f04001f;
         public static final int imageView1=0x7f04001c;
         public static final int join=0x7f040005;
         public static final int lastSeen=0x7f04001a;
         public static final int map=0x7f040006;
         public static final int mapTypeBtn=0x7f040007;
-        public static final int menu_settings=0x7f04001f;
+        public static final int menu_settings=0x7f040020;
         public static final int missingPerson=0x7f040018;
         public static final int none=0x7f040000;
         public static final int normal=0x7f040001;
         public static final int opID=0x7f040012;
         public static final int opName=0x7f040010;
         public static final int opPW=0x7f040014;
+        public static final int password=0x7f04001d;
         public static final int satellite=0x7f040002;
         public static final int startingPoint=0x7f040016;
         public static final int terrain=0x7f040003;
         public static final int textView1=0x7f04000c;
         public static final int textView2=0x7f04000e;
-        public static final int textView3=0x7f04001d;
+        public static final int textView3=0x7f04001e;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
