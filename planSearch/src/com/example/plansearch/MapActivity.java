@@ -369,7 +369,7 @@ public class MapActivity extends FragmentActivity implements LocationListener, R
 		lastPos = pos;
 		synchronized (Transmit.lock)
 		{
-			Transmit.positions.add(new Position(-1, pos.latitude, pos.longitude, Transmit.userID, true));
+			Transmit.positions.add(new Position(pos.latitude, pos.longitude, Transmit.userID, true));
 		}
 	}
 	@Override
