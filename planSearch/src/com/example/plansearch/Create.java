@@ -8,6 +8,9 @@ import android.widget.EditText;
 
 public class Create extends Activity {
 	
+	EditText name;
+	EditText pw;
+	
 
 	@Override
     protected void onCreate(Bundle savedInstanceState) 
@@ -18,7 +21,11 @@ public class Create extends Activity {
 	
 	public void createClick(View view)
 	{
-		if (Transmit.createOperation("Navn paa leteaksjon", "mitthemmeligepassord")) {
+		name = (EditText)findViewById(R.id.editText1);
+		pw = (EditText)findViewById(R.id.editText2);
+		
+		if (Transmit.createOperation(name.getText().toString(), pw.getText().toString())) 
+		{
 			System.out.println("create click");
 			Intent i = new Intent(this,Info.class); 
 			startActivity(i);

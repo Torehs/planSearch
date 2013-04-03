@@ -19,11 +19,11 @@
         android:text="Operation name:"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/opName"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="test" />
+        android:ems="10" />
 
     <TextView
         android:id="@+id/TextView01"
@@ -33,7 +33,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/TextView02"
+        android:id="@+id/opID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="test" />
@@ -45,11 +45,11 @@
         android:text="Password:"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <TextView
-        android:id="@+id/TextView04"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/opPW"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="test" />
+        android:ems="10" />
 
     <TextView
         android:id="@+id/TextView06"
@@ -59,7 +59,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/startingPoint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10" />
@@ -72,7 +72,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/missingPerson"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10" >
@@ -88,7 +88,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/lastSeen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10" />
