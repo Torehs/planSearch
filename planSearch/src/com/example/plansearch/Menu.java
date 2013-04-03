@@ -24,4 +24,11 @@ public class Menu extends Activity {
 		Intent i = new Intent(this,Status.class); 
 		startActivity(i); 
 	}
+	
+	public void mapClick(View view)
+	{
+		System.out.println("map click");
+		Intent i = new Intent(this,MapActivity.class); 
+		startActivity(i); 
+	}
 }

@@ -443,7 +443,7 @@ public class MapActivity extends FragmentActivity implements LocationListener, R
 					else
 					{
 						Path path;
-						if (paths.StartNew)
+						if (paths.StartNew || paths.Paths.size() == 0)
 						{
 							path = new Path();
 							paths.Paths.add(path);
