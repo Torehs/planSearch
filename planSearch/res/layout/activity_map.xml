@@ -34,6 +34,11 @@
 	        android:layout_height="wrap_content"
 	        android:layout_width="wrap_content"
 	        android:onClick="mapTypeMenu"/>
-	    
+	    <CheckBox 
+	        android:id="@+id/followChk"
+	        android:text="Follow position"
+	        android:layout_height="wrap_content"
+	        android:layout_width="wrap_content"
+	        android:onClick="followPositionClick"/>
     </LinearLayout>
 </LinearLayout>

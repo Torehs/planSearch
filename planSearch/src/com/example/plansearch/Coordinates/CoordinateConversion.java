@@ -27,6 +27,10 @@ public class CoordinateConversion
     return new UTM(c.convertLatLonToUTM(latitude, longitude));
 
   }
+  public UTM latLon2UTM(LatLng pos)
+  {
+	  return latLon2UTM(pos.latitude, pos.longitude);
+  }
 
   private void validate(double latitude, double longitude)
   {
