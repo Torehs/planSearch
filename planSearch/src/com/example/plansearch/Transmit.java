@@ -1,22 +1,11 @@
 package com.example.plansearch;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.example.plansearch.Transmit.Position;
 
 public class Transmit {
 	
@@ -75,39 +64,37 @@ public class Transmit {
 			result = true;
 		}
 		
-		// FUNGERE IKKE ENDA, MÅ LEGGE INN ASYNC()
-//		// Build JSONObject Transmit
-//		JSONObject jsonT = new JSONObject();
-//		try {
-//			jsonT.put("operationName", operationName);
-//			jsonT.put("operationPassword", operationPassword);
-//			
-//		} catch (JSONException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//		// Build JSONObject Receive
-//		JSONObject jsonR = new JSONObject();
-//		
-//		// Transmit and Receive
-//		try {
-//			jsonR = transmitAndReceive(jsonT);
-//		} catch (ClientProtocolException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//		// Decode JSONObject
-//		try {
-//			Transmit.operationID = jsonR.getInt("operationID");
-//		} catch (JSONException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		// Build JSONObject Transmit
+		JSONObject jsonT = new JSONObject();
+		try {
+			jsonT.put("operationName", operationName);
+			jsonT.put("operationPassword", operationPassword);
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// Build JSONObject Receive
+		JSONObject jsonR = new JSONObject();
+		
+		try {
+			jsonR = new Connect().execute(jsonT).get();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// Decode JSONObject
+		try {
+			Transmit.operationID = jsonR.getInt("operationID");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		return result;
 		
@@ -215,36 +202,6 @@ public class Transmit {
 		}
 		
 		return result;
-	}
-	
-	static public JSONObject transmitAndReceive(JSONObject jsonT) throws ClientProtocolException, IOException {
-		String myUri = "http://folk.ntnu.no/torehavs/transfer.php";
-		HttpClient httpClient = new DefaultHttpClient();
-		HttpPost httppost = new HttpPost(myUri);
-		
-		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-		nameValuePairs.add(new BasicNameValuePair("data", jsonT.toString()));
-
-		try {
-			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-		} catch (UnsupportedEncodingException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		HttpResponse response = httpClient.execute(httppost);
-
-		String bodyHtml = EntityUtils.toString(response.getEntity());
-		
-		JSONObject jsonR = new JSONObject();;
-		try {
-			jsonR = new JSONObject(bodyHtml);
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return jsonR;
 	}
 
 }
