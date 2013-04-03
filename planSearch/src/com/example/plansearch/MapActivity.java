@@ -1,6 +1,9 @@
 package com.example.plansearch;
 
+import java.util.*;
+
 import com.example.plansearch.*;
+import com.example.plansearch.Transmit.Position;
 import com.example.plansearch.Coordinates.*;
 import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.CameraPosition;
@@ -18,14 +21,16 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
+import android.util.SparseArray;
 import android.view.*;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.*;
 
-public class MapActivity extends FragmentActivity implements LocationListener {
+public class MapActivity extends FragmentActivity implements LocationListener, Runnable {
 	private GoogleMap map = null;
 	private LocationManager locationManager = null;
 	private boolean followOnMap = true;
+	private Timer timer;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -66,6 +71,8 @@ public class MapActivity extends FragmentActivity implements LocationListener {
 		map.moveCamera(CameraUpdateFactory.zoomBy(12f));
 		
 		//NewDraw(30);
+		timer = new Timer("network-looper", true);
+		timer.scheduleAtFixedRate(new NetworkLooper(this), 1000, 10000);
 	}
 	
 	private void NewDraw(double width)
@@ -360,6 +367,10 @@ public class MapActivity extends FragmentActivity implements LocationListener {
 			DrawLines(20, 0x550000FF, lastPos, pos);
 		}
 		lastPos = pos;
+		synchronized (Transmit.lock)
+		{
+			Transmit.positions.add(new Position(-1, pos.latitude, pos.longitude, Transmit.userID, true));
+		}
 	}
 	@Override
 	public void onProviderDisabled(String provider) {
@@ -376,5 +387,90 @@ public class MapActivity extends FragmentActivity implements LocationListener {
 		// TODO Auto-generated method stub
 		
 	}
+	private class NetworkLooper extends TimerTask
+	{
+		private MapActivity _ref;
+		public NetworkLooper(MapActivity ref)
+		{
+			_ref = ref;
+		}
+		@Override
+		public void run()
+		{
+			synchronized(Transmit.lock)
+			{
+				Transmit.transmitLogs();
+				Transmit.receiveLogs();
+			}
+			runOnUiThread(_ref);
+		}
+		
+	}
 	
+	private SparseArray<Paths> userPaths = new SparseArray<Paths>();
+	private int nextIndex = 0;
+	private class Paths
+	{
+		List<Path> Paths = new ArrayList<Path>();
+		boolean StartNew = false;
+	}
+	private class Path
+	{
+		public List<LatLng> positions = new ArrayList<LatLng>();
+		public int LastDrawnTo = 0;
+	}
+	//To update map with new coordinates from other users
+	@Override
+	public void run()
+	{
+		synchronized(Transmit.positions)
+		{
+			int userID = Transmit.userID;
+			List<Position> pos = Transmit.positions;
+			for (;nextIndex < pos.size();nextIndex++)
+			{
+				Position step = pos.get(nextIndex);
+				if (step.userID != userID)
+				{
+					Paths paths = userPaths.get(step.userID);
+					if (paths == null)
+						paths = new Paths();
+					userPaths.append(step.userID, paths);
+					if (!step.searched)
+					{
+						paths.StartNew = true;
+					}
+					else
+					{
+						Path path;
+						if (paths.StartNew)
+						{
+							path = new Path();
+							paths.Paths.add(path);
+							paths.StartNew = false;
+						}
+						else
+							path = paths.Paths.get(paths.Paths.size()-1);
+						path.positions.add(new LatLng(step.latitude,step.longitude));
+					}
+				}
+			}
+		}
+		DrawFromPaths();
+	}
+	private void DrawFromPaths()
+	{
+		for(int i = 0; i < userPaths.size();i++)
+		{
+			Paths paths = userPaths.valueAt(i);
+			for (Path path: paths.Paths)
+			{
+				for (;path.LastDrawnTo < path.positions.size()-1;path.LastDrawnTo++)
+				{
+					DrawLines(10, 0x660000FF, path.positions.get(path.LastDrawnTo), path.positions.get(path.LastDrawnTo+1));
+					
+				}
+			}
+		}
+	}
 }

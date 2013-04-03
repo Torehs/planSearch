@@ -8,7 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Transmit {
-	
+	static Object lock = new Object();
 	// Stored data
 	// Operation
 	static int operationID;
