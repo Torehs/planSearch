@@ -2,7 +2,9 @@ package com.example.plansearch;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.View;
@@ -12,15 +14,15 @@ public class MainActivity extends Activity {
 	@Override
     protected void onCreate(Bundle savedInstanceState) 
 	{
-		if(getMyPhoneNumber() != null)
+		
+		super.onCreate(savedInstanceState);
+    	setContentView(R.layout.activity_main);
+    	
+		if(newUser())
 		{
-			super.onCreate(savedInstanceState);
-        	setContentView(R.layout.activity_main);
-		}
-		else
-		{
-			super.onCreate(savedInstanceState);
-			setContentView(R.layout.reg_user_main);
+			System.out.println("no nr registered");
+			Intent i = new Intent(this,RegUser.class); 
+			startActivity(i);
 		}
         
     }
@@ -46,9 +48,15 @@ public class MainActivity extends Activity {
 		startActivity(i); 
 	}
 	
-	private String getMyPhoneNumber(){
-	    TelephonyManager mTelephonyMgr;
-	    mTelephonyMgr = (TelephonyManager)getSystemService(MainActivity.TELEPHONY_SERVICE); 
-	    return mTelephonyMgr.getLine1Number();
+	public boolean newUser()
+	{	
+		SharedPreferences prefs = this.getSharedPreferences("com.example.plansearch", Context.MODE_PRIVATE);
+		
+		int phoneNr = prefs.getInt("phoneNr", 0);
+		
+		if(phoneNr == 0)
+			return true;
+		else
+			return false;
 	}
 }
