@@ -2,10 +2,12 @@
 
 
 	import java.util.ArrayList;
-	import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutionException;
 
 	import org.json.JSONException;
-	import org.json.JSONObject;
+import org.json.JSONObject;
+
+import android.widget.Toast;
 
 	public class Transmit {
 		static Object lock = new Object();
@@ -20,7 +22,7 @@
 		static String operationLastSeen;
 		
 		// User
-		static int userID = 0;
+		static int userID = 5;
 		static String userName;
 		static String userPassword;
 		static String userPhone;
@@ -50,12 +52,14 @@
 		static int lastEventID;
 		static ArrayList<String> events = new ArrayList<String>();
 		
-		static public boolean createOperation(String operationName, String operationPassword) {
-			boolean result = false;
-			
+		// CREATE OPERATION
+		static public String createOperation(String operationName, String operationPassword) {
+			String error = "Error!";
+			int tempOperationID = 0;
 			// Build JSONObject Transmit
 			JSONObject jsonT = new JSONObject();
 			try {
+				jsonT.put("userID", Transmit.userID);
 				jsonT.put("operationName", operationName);
 				jsonT.put("operationPassword", operationPassword);
 				
@@ -77,27 +81,30 @@
 				e.printStackTrace();
 			}
 			
-			// Decode JSONObject
+			// Decode JSONObject Receive
 			try {
-				Transmit.operationID = jsonR.getInt("operationID");
+				error = jsonR.getString("error");
+				tempOperationID = jsonR.getInt("operationID");
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
-			if ( Transmit.operationID > 0 ) {
+			if ( "".equals(error) ) {
+				Transmit.operationID = tempOperationID;
 				Transmit.operationName = operationName;
 				Transmit.operationPassword = operationPassword;
-				Transmit.userRole = 2;
-				result = true;
+				Transmit.userRole = 2;	
 			}
 
-			return result;
+			return error;
 			
 		}
 		
-		static public boolean createUser(String userName, String userPassword, String userPhone, String userOrganization) {
-			boolean result = false;
+		// CREATE USER
+		static public String createUser(String userName, String userPassword, String userPhone, String userOrganization) {
+			String error = "Error!";
+			int tempUserID = 0;
 			
 			// Build JSONObject Transmit
 			JSONObject jsonT = new JSONObject();
@@ -125,36 +132,40 @@
 				e.printStackTrace();
 			}
 			
-			// Decode JSONObject
+			// Decode JSONObject Receive
 			try {
-				Transmit.userID = jsonR.getInt("userID");
+				error = jsonR.getString("error");
+				tempUserID = jsonR.getInt("userID");
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
-			
-			if ( Transmit.userID > 0) {
+			if ( "".equals(error) ) {
+				Transmit.userID = tempUserID;
 				Transmit.userName = userName;
 				Transmit.userPassword = userPassword;
 				Transmit.userPhone = userPhone;
 				Transmit.userOrganization = userOrganization;
 				Transmit.userRole = 0;
 				Transmit.userTeam = 0;
-				result = true;
 			}
 			
-			return result;
+			return error;
 		}
 		
-		static public boolean joinOperation(int operationID, String operationPassword) {
-			boolean result = false;
+		// JOIN OPERATION
+		static public String joinOperation(int operationID, String operationPassword) {
+			String error = "Error!";
+			String tempOperationName = "";
+			String tempOperationDescription = "";
 			
 			// Build JSONObject Transmit
 			JSONObject jsonT = new JSONObject();
 			try {
 				jsonT.put("operationID", operationID);
 				jsonT.put("operationPassword", operationPassword);
+				jsonT.put("userID", Transmit.userID);
 				
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -174,45 +185,80 @@
 				e.printStackTrace();
 			}
 			
-			// Decode JSONObject
+			// Decode JSONObject Receive
 			try {
-				Transmit.operationName = jsonR.getString("operationName");
-				Transmit.operationDescription = jsonR.getString("operationDescription");
+				error = jsonR.getString("error");
+				tempOperationName = jsonR.getString("operationName");
+				tempOperationDescription = jsonR.getString("operationDescription");
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
-			if ( Transmit.operationName.length() > 0 ) {
+			if ( "".equals(error) ) {
 				Transmit.operationID = operationID;
+				Transmit.operationName = tempOperationName;
 				Transmit.operationPassword = operationPassword;
+				Transmit.operationDescription = tempOperationDescription;
 				Transmit.operationStartingPoint = "Oppmøte depot Trondheim Røde Kors";
 				Transmit.operationMissingPerson = "64 år gammel mann fra Melhus. Dårlig kledd, men i god form. Rød anorakk, sort bukse, rød lue og hvit sekk.";
 				Transmit.operationLastSeen = "Vassfjell-kapellet kl. 14:45 onsdag.";
-				
-				result = true;
 			}
 			
-			return result;	
+			return error;
 		}
 		
-		static public boolean login(String userName, String userPassword) {
-			boolean result = false;
-			boolean transmitted = true;
+		// LOGIN
+		static public String login(int userID, String userPassword) {
+			String error = "Error!";
+			String tempUserName = "";
+			String tempUserPhone = "";
+			String tempUserOrganization = "";
 			
-			if (transmitted) {
-				Transmit.userID = 12;
-				Transmit.userName = "Fornavn Etternavn";
-				Transmit.userPassword = "passord";
-				Transmit.userPhone = "+4712345678";
-				Transmit.userOrganization = "Trondheim Røde Kors hjelpekorps";
-				Transmit.userRole = 0;
-				Transmit.userTeam = 0;
+			// Build JSONObject Transmit
+			JSONObject jsonT = new JSONObject();
+			try {
+				jsonT.put("userID", userID);
+				jsonT.put("userPassword", userPassword);
 				
-				result = true;
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			
-			return result;
+			// Build JSONObject Receive
+			JSONObject jsonR = new JSONObject();
+			
+			try {
+				jsonR = new Connect().execute(jsonT).get();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			// Decode JSONObject Receive
+			try {
+				error = jsonR.getString("error");
+				tempUserName = jsonR.getString("userName");
+				tempUserPhone = jsonR.getString("userPhone");
+				tempUserOrganization = jsonR.getString("userOrganization");
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			if ( "".equals(error) ) {
+				Transmit.userID = userID;
+				Transmit.userName = tempUserName;
+				Transmit.userPassword = userPassword;
+				Transmit.userPhone= tempUserPhone;
+				Transmit.userOrganization = tempUserOrganization;
+			}
+			
+			return error;
 		}
 		
 		static public boolean receiveLogs() {
@@ -243,23 +289,51 @@
 			return result;
 		}
 		
-		static public boolean updateOperation(String operationName, String operationPassword, String operationDescription, String operationStartingPoint, String operationMissingPerson, String operationLastSeen) {
-			boolean result = false;
-			boolean transmitted = true;
+		static public String updateOperation(String operationName, String operationPassword, String operationDescription, String operationStartingPoint, String operationMissingPerson, String operationLastSeen) {
+			String error = "Error!";
 			
-			if (transmitted) {
-				Transmit.operationID = 15;
-				Transmit.operationName = operationName;
-				Transmit.operationPassword = operationPassword;
-				Transmit.operationDescription = operationDescription;
-				Transmit.operationStartingPoint = operationStartingPoint;
-				Transmit.operationMissingPerson = operationMissingPerson;
-				Transmit.operationLastSeen = operationLastSeen;
+			// Build JSONObject Transmit
+			JSONObject jsonT = new JSONObject();
+			try {
+				jsonT.put("operationID", operationID);
+				jsonT.put("operationName", operationName);
+				jsonT.put("operationPassword", operationPassword);
+				jsonT.put("operationDescription", operationDescription);
+				jsonT.put("operationStartingPoint", operationStartingPoint);
+				jsonT.put("operationMissingPerson", operationMissingPerson);
+				jsonT.put("operationLastSeen", operationLastSeen);
 				
-				result = true;
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			
-			return result;
+			// Build JSONObject Receive
+			JSONObject jsonR = new JSONObject();
+			
+			try {
+				jsonR = new Connect().execute(jsonT).get();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			// Decode JSONObject Receive
+			try {
+				error = jsonR.getString("error");
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			if ( "".equals(error) ) {
+				
+			}
+			
+			return error;
 		}
 
 	}
