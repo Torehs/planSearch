@@ -6,6 +6,12 @@
     class="com.google.android.gms.maps.MapFragment"
     android:gravity="top"
     tools:context=".MainActivity" >
+    
+    <ImageView
+                android:id="@+id/bigLogo"
+                android:src="@drawable/dust_3"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"  />
 
     <Button
         android:id="@+id/create"
