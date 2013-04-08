@@ -4,9 +4,11 @@
 	import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-	import org.json.JSONException;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
 import android.widget.Toast;
 
 	public class Transmit {
@@ -31,22 +33,26 @@ import android.widget.Toast;
 		static int userTeam;
 		
 		// Logs
-		static int lastLogID;
+		static int lastLogID = 0;
 		static class Position {
 			int ID;
+			int userID;
+			boolean logType;
 			double latitude;
 			double longitude;
-			int userID;
-			boolean searched;
+			int positionTime;
 			
-			public Position(double latitude, double longitude, int userID, boolean searched) {
+			public Position(int ID, int userID, boolean logType, double latitude, double longitude, int positionTime) {
+				this.ID = ID;
+				this.userID = userID;
+				this.logType = logType;
 				this.latitude = latitude;
 				this.longitude = longitude;
-				this.userID = userID;
-				this.searched = searched;
+				this.positionTime = positionTime;
 			}
 		}
 		static ArrayList<Position> positions = new ArrayList<Position>();
+		static ArrayList<Position> positionsQueue = new ArrayList<Position>();
 		
 		// Events
 		static int lastEventID;
@@ -209,8 +215,9 @@ import android.widget.Toast;
 		}
 		
 		// LOGIN
-		static public String login(int userID, String userPassword) {
+		static public String login(int userPhone) {
 			String error = "Error!";
+			int tempUserID = 0;
 			String tempUserName = "";
 			String tempUserPhone = "";
 			String tempUserOrganization = "";
@@ -218,8 +225,7 @@ import android.widget.Toast;
 			// Build JSONObject Transmit
 			JSONObject jsonT = new JSONObject();
 			try {
-				jsonT.put("userID", userID);
-				jsonT.put("userPassword", userPassword);
+				jsonT.put("userPhone", userPhone);
 				
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -254,27 +260,65 @@ import android.widget.Toast;
 				Transmit.userID = userID;
 				Transmit.userName = tempUserName;
 				Transmit.userPassword = userPassword;
-				Transmit.userPhone= tempUserPhone;
+				//Transmit.userPhone= userPhone;
 				Transmit.userOrganization = tempUserOrganization;
 			}
 			
 			return error;
 		}
 		
-		static public boolean receiveLogs() {
-			boolean result = false;
-			boolean transmitted = true;
-			
-			if (transmitted) {
-				// Not finished
-				positions.add(new Position(10.425342, 55.1313541, 12, true));
-				positions.add(new Position(10.425353, 55.1313521, 12, true));
-				Transmit.lastLogID = 721;
-				
-				result = true;
+		// RECEIVE LOGS
+		static public String receiveLogs() {
+			String error = "Error!";
+			// Build JSONObject Transmit
+			JSONObject jsonT = new JSONObject();
+			JSONArray jsonPos = new JSONArray();
+			try {
+//				jsonT.put("lastLogID", Transmit.lastLogID);
+//				jsonT.put("operationID", Transmit.operationID);
+				jsonT.put("lastLogID", 700);
+				jsonT.put("operationID", 1);	
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			
-			return result;
+			// Build JSONObject Receive
+			JSONObject jsonR = new JSONObject();
+			
+			try {
+				jsonR = new Connect().execute(jsonT).get();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			// Decode JSONObject Receive
+			try {
+				error = jsonR.getString("error");
+				jsonPos = jsonR.getJSONArray("positions");
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			if ( "".equals(error) ) {
+				for (int i = 0; i<jsonPos.length(); i++) {
+					try {
+						JSONObject tmp = jsonPos.getJSONObject(i);
+						positions.add(new Position(tmp.getInt("ID"), tmp.getInt("userID"), (tmp.getInt("logType") != 0), tmp.getDouble("latitude"), tmp.getDouble("longitude"), tmp.getInt("positionTime")));
+						Transmit.lastLogID = tmp.getInt("ID");
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+
+			return error;
 		}
 		
 		static public boolean transmitLogs() {
@@ -289,6 +333,7 @@ import android.widget.Toast;
 			return result;
 		}
 		
+		// UPDATE OPERATION
 		static public String updateOperation(String operationName, String operationPassword, String operationDescription, String operationStartingPoint, String operationMissingPerson, String operationLastSeen) {
 			String error = "Error!";
 			

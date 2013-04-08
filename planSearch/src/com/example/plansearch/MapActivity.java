@@ -369,7 +369,7 @@ public class MapActivity extends FragmentActivity implements LocationListener, R
 		lastPos = pos;
 		synchronized (Transmit.lock)
 		{
-			Transmit.positions.add(new Position(pos.latitude, pos.longitude, Transmit.userID, true));
+			Transmit.positions.add(new Position(0, 0, true, pos.latitude, pos.longitude, 0));
 		}
 	}
 	@Override
@@ -436,7 +436,7 @@ public class MapActivity extends FragmentActivity implements LocationListener, R
 					if (paths == null)
 						paths = new Paths();
 					userPaths.append(step.userID, paths);
-					if (!step.searched)
+					if (!step.logType)
 					{
 						paths.StartNew = true;
 					}
