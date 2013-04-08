@@ -327,17 +327,18 @@ import android.widget.Toast;
 			// Build JSONObject Transmit
 			JSONObject jsonT = new JSONObject();
 			
-			positionsQueue.add(new Position(0, 5, false, 10.543534, 42.34243, 532452345));
+			//positionsQueue.add(new Position(0, 5, false, 10.543534, 42.34243, 532452345));
+			//positionsQueue.add(new Position(0, 10, false, 21.543534, 53.34243, 632452345));
 			JSONObject tmp = new JSONObject();
 			for (int i = 0; i < positionsQueue.size(); i++) {
 				try {
-					tmp.put("userID", 8);
+					tmp.put("userID", positionsQueue.get(i).userID);
 					tmp.put("longitude", positionsQueue.get(i).longitude);
 					tmp.put("latitude", positionsQueue.get(i).latitude);
-					tmp.put("logType", positionsQueue.get(i).logType);
+					tmp.put("logType", positionsQueue.get(i).logType ? 1 : 0);
 					tmp.put("positionTime", positionsQueue.get(i).positionTime);
 					jsonT.put("operationID", Transmit.operationID);
-					jsonT.put("positions", tmp);
+					jsonT.accumulate("positions", tmp);
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
