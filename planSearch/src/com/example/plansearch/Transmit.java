@@ -15,7 +15,7 @@ import android.widget.Toast;
 		static Object lock = new Object();
 		// Stored data
 		// Operation
-		static int operationID = 4;
+		static int operationID;
 		static String operationName;
 		static String operationPassword;
 		static String operationDescription;
@@ -24,7 +24,7 @@ import android.widget.Toast;
 		static String operationLastSeen;
 		
 		// User
-		static int userID = 5;
+		static int userID;
 		static String userName;
 		static String userPassword;
 		static String userPhone;
@@ -274,10 +274,8 @@ import android.widget.Toast;
 			JSONObject jsonT = new JSONObject();
 			JSONArray jsonPos = new JSONArray();
 			try {
-//				jsonT.put("lastLogID", Transmit.lastLogID);
-//				jsonT.put("operationID", Transmit.operationID);
-				jsonT.put("lastLogID", 700);
-				jsonT.put("operationID", 1);	
+				jsonT.put("lastLogID", Transmit.lastLogID);
+				jsonT.put("operationID", Transmit.operationID);	
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -327,11 +325,9 @@ import android.widget.Toast;
 			// Build JSONObject Transmit
 			JSONObject jsonT = new JSONObject();
 			
-			//positionsQueue.add(new Position(0, 5, false, 10.543534, 42.34243, 532452345));
-			//positionsQueue.add(new Position(0, 10, false, 21.543534, 53.34243, 632452345));
-			JSONObject tmp = new JSONObject();
 			for (int i = 0; i < positionsQueue.size(); i++) {
 				try {
+					JSONObject tmp = new JSONObject();
 					tmp.put("userID", positionsQueue.get(i).userID);
 					tmp.put("longitude", positionsQueue.get(i).longitude);
 					tmp.put("latitude", positionsQueue.get(i).latitude);
@@ -367,7 +363,7 @@ import android.widget.Toast;
 			}
 			
 			if ( "".equals(error) ) {
-				
+				positionsQueue.clear();
 			}
 
 			return error;
@@ -380,7 +376,7 @@ import android.widget.Toast;
 			// Build JSONObject Transmit
 			JSONObject jsonT = new JSONObject();
 			try {
-				jsonT.put("operationID", operationID);
+				jsonT.put("operationID", Transmit.operationID);
 				jsonT.put("operationName", operationName);
 				jsonT.put("operationPassword", operationPassword);
 				jsonT.put("operationDescription", operationDescription);
