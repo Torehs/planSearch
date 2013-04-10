@@ -485,5 +485,20 @@ import android.widget.Toast;
 			
 			return error;
 		}
+		
+		static public void onExit()
+		{
+			Transmit.positions.clear();
+			Transmit.positionsQueue.clear();
+			Transmit.lastEventID = 1;
+			Transmit.lastLogID = 1;
+			Transmit.operationID = 0;
+			Transmit.operationName = "";
+			Transmit.operationPassword = "";
+			Transmit.operationDescription = "";
+			Transmit.operationStartingPoint = "";
+			Transmit.operationMissingPerson = "";
+			Transmit.operationLastSeen = "";
+		}
 
 	}
