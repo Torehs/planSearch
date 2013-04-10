@@ -172,7 +172,6 @@ import android.widget.Toast;
 				jsonT.put("operationID", operationID);
 				jsonT.put("operationPassword", operationPassword);
 				jsonT.put("userID", Transmit.userID);
-				jsonT.put("userLogin", 1);
 				
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -228,6 +227,7 @@ import android.widget.Toast;
 			try {
 				jsonT.put("userPhone", userPhone);
 				jsonT.put("userPassword", userPassword);
+				jsonT.put("userLogin", 1);
 				
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
