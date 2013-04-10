@@ -48,6 +48,8 @@ public class Menu extends Activity {
 	            	Transmit.onExit();
 	            	finish();
 	            	Intent iMainActivity = new Intent(Menu.this, MainActivity.class);
+	            	iMainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
+	            	iMainActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 	                startActivity(iMainActivity);
 
 	            }
