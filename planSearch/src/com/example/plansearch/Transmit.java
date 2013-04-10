@@ -160,6 +160,50 @@ import android.widget.Toast;
 			return error;
 		}
 		
+		// GET USER NAME
+		static public String getUserName(int userID) {
+			String error = "Error!";
+			String tempUserName = "";
+			// Build JSONObject Transmit
+			JSONObject jsonT = new JSONObject();
+			try {
+				jsonT.put("getUserID", userID);
+				
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			// Build JSONObject Receive
+			JSONObject jsonR = new JSONObject();
+			
+			try {
+				jsonR = new Connect().execute(jsonT).get();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			// Decode JSONObject Receive
+			try {
+				error = jsonR.getString("error");
+				tempUserName = jsonR.getString("userName");
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			if ( "".equals(error) ) {
+				error = tempUserName;
+			}
+
+			return error;
+			
+		}
+		
 		// JOIN OPERATION
 		static public String joinOperation(int operationID, String operationPassword) {
 			String error = "Error!";
