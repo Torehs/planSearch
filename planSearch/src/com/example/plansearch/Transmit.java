@@ -100,7 +100,8 @@ import android.widget.Toast;
 				Transmit.operationID = tempOperationID;
 				Transmit.operationName = operationName;
 				Transmit.operationPassword = operationPassword;
-				Transmit.userRole = 2;	
+				Transmit.userRole = 2;
+				Transmit.positions.clear();
 			}
 
 			return error;
@@ -259,6 +260,7 @@ import android.widget.Toast;
 				Transmit.operationStartingPoint = tempOperationStartingPoint;
 				Transmit.operationMissingPerson = tempOperationMissingPerson;
 				Transmit.operationLastSeen = tempOperationLastSeen;
+				Transmit.positions.clear();
 			}
 			
 			return error;
@@ -425,6 +427,7 @@ import android.widget.Toast;
 		static public String updateOperation(String operationName, String operationPassword, String operationDescription, String operationStartingPoint, String operationMissingPerson, String operationLastSeen) {
 			String error = "Error!";
 			String tempOperationName = "";
+			String tempOperationPassword = "";
 			String tempOperationDescription = "";
 			String tempOperationStartingPoint = "";
 			String tempOperationMissingPerson = "";
@@ -462,6 +465,12 @@ import android.widget.Toast;
 			// Decode JSONObject Receive
 			try {
 				error = jsonR.getString("error");
+				tempOperationName = jsonR.getString("operationName");
+				tempOperationPassword = jsonR.getString("operationPassword");
+				tempOperationDescription = jsonR.getString("operationDescription");
+				tempOperationStartingPoint = jsonR.getString("uperationStartingPoint");
+				tempOperationMissingPerson = jsonR.getString("operationMissingPerson");
+				tempOperationLastSeen = jsonR.getString("operationLastSeen");
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
