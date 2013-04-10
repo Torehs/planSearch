@@ -490,7 +490,7 @@ public class MapActivity extends FragmentActivity implements LocationListener, R
 				{
 					MarkerOptions mrk = new MarkerOptions();
 					mrk.position(pos);
-					mrk.title(String.format("%d", uid));
+					mrk.title(Transmit.getUserName(uid));
 					paths.Marker = map.addMarker(mrk);
 				}
 				paths.Marker.setPosition(pos);
