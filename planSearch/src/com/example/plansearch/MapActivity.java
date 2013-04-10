@@ -6,11 +6,7 @@ import com.example.plansearch.*;
 import com.example.plansearch.Transmit.Position;
 import com.example.plansearch.Coordinates.*;
 import com.google.android.gms.maps.*;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.MarkerOptionsCreator;
-import com.google.android.gms.maps.model.PolygonOptions;
+import com.google.android.gms.maps.model.*;
 
 import android.location.Location;
 import android.location.LocationListener;
@@ -377,7 +373,7 @@ public class MapActivity extends FragmentActivity implements LocationListener, R
 		}
 		if (lastPos != null)
 		{
-			DrawLines(20, 0x550000FF, lastPos, pos);
+			DrawLines(20, 0x55FF0000, lastPos, pos);
 		}
 		lastPos = pos;
 		synchronized (Transmit.lock)
@@ -429,6 +425,7 @@ public class MapActivity extends FragmentActivity implements LocationListener, R
 	{
 		List<Path> Paths = new ArrayList<Path>();
 		boolean StartNew = false;
+		Marker Marker = null;
 	}
 	private class Path
 	{
@@ -441,34 +438,30 @@ public class MapActivity extends FragmentActivity implements LocationListener, R
 	{
 		synchronized(Transmit.positions)
 		{
-			int userID = Transmit.userID;
 			List<Position> pos = Transmit.positions;
 			for (;nextIndex < pos.size();nextIndex++)
 			{
 				Position step = pos.get(nextIndex);
-				if (step.userID != userID)
+				Paths paths = userPaths.get(step.userID);
+				if (paths == null)
+					paths = new Paths();
+				userPaths.append(step.userID, paths);
+				if (!step.logType)
 				{
-					Paths paths = userPaths.get(step.userID);
-					if (paths == null)
-						paths = new Paths();
-					userPaths.append(step.userID, paths);
-					if (!step.logType)
+					paths.StartNew = true;
+				}
+				else
+				{
+					Path path;
+					if (paths.StartNew || paths.Paths.size() == 0)
 					{
-						paths.StartNew = true;
+						path = new Path();
+						paths.Paths.add(path);
+						paths.StartNew = false;
 					}
 					else
-					{
-						Path path;
-						if (paths.StartNew || paths.Paths.size() == 0)
-						{
-							path = new Path();
-							paths.Paths.add(path);
-							paths.StartNew = false;
-						}
-						else
-							path = paths.Paths.get(paths.Paths.size()-1);
-						path.positions.add(new LatLng(step.latitude,step.longitude));
-					}
+						path = paths.Paths.get(paths.Paths.size()-1);
+					path.positions.add(new LatLng(step.latitude,step.longitude));
 				}
 			}
 		}
@@ -478,14 +471,30 @@ public class MapActivity extends FragmentActivity implements LocationListener, R
 	{
 		for(int i = 0; i < userPaths.size();i++)
 		{
+			LatLng pos = null;
 			Paths paths = userPaths.valueAt(i);
+			int uid = userPaths.keyAt(i);
+			boolean isSelf = uid == Transmit.userID;
+			int color = isSelf ? 0x66FF0000 : 0x660000FF; 
 			for (Path path: paths.Paths)
 			{
 				for (;path.LastDrawnTo < path.positions.size()-1;path.LastDrawnTo++)
 				{
-					DrawLines(10, 0x660000FF, path.positions.get(path.LastDrawnTo), path.positions.get(path.LastDrawnTo+1));
-					
+					DrawLines(10, color, path.positions.get(path.LastDrawnTo), path.positions.get(path.LastDrawnTo+1));
 				}
+				pos = path.positions.get(path.positions.size()-1);
+			}
+			if (pos != null && !isSelf)
+			{
+				if (paths.Marker == null)
+				{
+					MarkerOptions mrk = new MarkerOptions();
+					mrk.position(pos);
+					mrk.title(String.format("%d", uid));
+					paths.Marker = map.addMarker(mrk);
+				}
+				paths.Marker.setPosition(pos);
+				
 			}
 		}
 	}
