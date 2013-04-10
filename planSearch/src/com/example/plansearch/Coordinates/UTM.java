@@ -4,6 +4,7 @@ public class UTM
 {
 	public UTM(String str)
 	{
+		str = str.replace(',', '.');
 		String[] parts = str.split(" ");
 		LongtitudeBand = Integer.parseInt(parts[0]);
 		LatitudeBand = parts[1].charAt(0);
