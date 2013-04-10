@@ -165,6 +165,9 @@ import android.widget.Toast;
 			String error = "Error!";
 			String tempOperationName = "";
 			String tempOperationDescription = "";
+			String tempOperationStartingPoint = "";
+			String tempOperationMissingPerson = "";
+			String tempOperationLastSeen = "";
 			
 			// Build JSONObject Transmit
 			JSONObject jsonT = new JSONObject();
@@ -196,6 +199,9 @@ import android.widget.Toast;
 				error = jsonR.getString("error");
 				tempOperationName = jsonR.getString("operationName");
 				tempOperationDescription = jsonR.getString("operationDescription");
+				tempOperationStartingPoint = jsonR.getString("startingPoint");
+				tempOperationMissingPerson = jsonR.getString("missingPerson");
+				tempOperationLastSeen = jsonR.getString("lastSeen");
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -206,9 +212,9 @@ import android.widget.Toast;
 				Transmit.operationName = tempOperationName;
 				Transmit.operationPassword = operationPassword;
 				Transmit.operationDescription = tempOperationDescription;
-				Transmit.operationStartingPoint = "Oppmøte depot Trondheim Røde Kors";
-				Transmit.operationMissingPerson = "64 år gammel mann fra Melhus. Dårlig kledd, men i god form. Rød anorakk, sort bukse, rød lue og hvit sekk.";
-				Transmit.operationLastSeen = "Vassfjell-kapellet kl. 14:45 onsdag.";
+				Transmit.operationStartingPoint = tempOperationStartingPoint;
+				Transmit.operationMissingPerson = tempOperationMissingPerson;
+				Transmit.operationLastSeen = tempOperationLastSeen;
 			}
 			
 			return error;
@@ -374,6 +380,11 @@ import android.widget.Toast;
 		// UPDATE OPERATION
 		static public String updateOperation(String operationName, String operationPassword, String operationDescription, String operationStartingPoint, String operationMissingPerson, String operationLastSeen) {
 			String error = "Error!";
+			String tempOperationName = "";
+			String tempOperationDescription = "";
+			String tempOperationStartingPoint = "";
+			String tempOperationMissingPerson = "";
+			String tempOperationLastSeen = "";
 			
 			// Build JSONObject Transmit
 			JSONObject jsonT = new JSONObject();
@@ -413,7 +424,12 @@ import android.widget.Toast;
 			}
 			
 			if ( "".equals(error) ) {
-				
+				Transmit.operationName = tempOperationName;
+				Transmit.operationPassword = operationPassword;
+				Transmit.operationDescription = tempOperationDescription;
+				Transmit.operationStartingPoint = tempOperationStartingPoint;
+				Transmit.operationMissingPerson = tempOperationMissingPerson;
+				Transmit.operationLastSeen = tempOperationLastSeen;
 			}
 			
 			return error;
