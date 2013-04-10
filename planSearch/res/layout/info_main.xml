@@ -1,121 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-<LinearLayout 
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical" >
+    android:fillViewport="true" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Information"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Operation name:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <EditText
-        android:id="@+id/opName"
+    <RelativeLayout
+        android:id="@+id/RelativeLayout1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10" />
+        android:layout_height="match_parent"
+        android:background="@drawable/woods"
+        android:gravity="center"
+        android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/TextView01"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Operation ID:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+	        <TextView
+	            android:id="@+id/textView1"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:text="Information"
+	            android:textAppearance="?android:attr/textAppearanceLarge" />
+	
+	        <TextView
+	            android:id="@+id/textView2"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_below="@+id/textView1"
+	            android:text="Operation name:"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	        <EditText
+	            android:id="@+id/opName"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_below="@+id/textView2"
+	            android:ems="10" />
+	
+	        <TextView
+	            android:id="@+id/TextView01"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_below="@+id/opName"
+	            android:text="Operation ID:"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	        <TextView
+	            android:id="@+id/opID"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_below="@+id/TextView01"
+	            android:text="test" />
+	
+	        <TextView
+	            android:id="@+id/TextView03"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_below="@+id/opID"
+	            android:text="Password:"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	        <EditText
+	            android:id="@+id/opPW"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_below="@+id/TextView03"
+	            android:ems="10" />
+	
+	        <TextView
+	            android:id="@+id/TextView06"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_below="@+id/opPW"
+	            android:text="Starting point:"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	        <EditText
+	            android:id="@+id/startingPoint"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_below="@+id/TextView06"
+	            android:ems="10" />
+	
+	        <TextView
+	            android:id="@+id/TextView05"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_below="@+id/startingPoint"
+	            android:text="Missing person:"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	        <EditText
+	            android:id="@+id/missingPerson"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_below="@+id/TextView05"
+	            android:ems="10" >
+	
+	            <requestFocus />
+	        </EditText>
+	
+	        <TextView
+	            android:id="@+id/TextView07"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_below="@+id/missingPerson"
+	            android:text="Last seen:"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	        <EditText
+	            android:id="@+id/lastSeen"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_below="@+id/TextView07"
+	            android:ems="10" />
+	
+	        <TextView
+	            android:id="@+id/TextView08"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_below="@+id/lastSeen"
+	            android:text="Picture:"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	        <ImageView
+	            android:id="@+id/imageView1"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_below="@+id/TextView08"
+	            android:src="@drawable/ic_launcher" />
+	
+	        <Button
+	            android:id="@+id/button1"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_below="@+id/imageView1"
+	            android:onClick="saveClick"
+	            android:text="Save" />
+    </RelativeLayout>
 
-    <TextView
-        android:id="@+id/opID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="test" />
-
-    <TextView
-        android:id="@+id/TextView03"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Password:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <EditText
-        android:id="@+id/opPW"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10" />
-
-    <TextView
-        android:id="@+id/TextView06"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Starting point:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <EditText
-        android:id="@+id/startingPoint"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10" />
-
-    <TextView
-        android:id="@+id/TextView05"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Missing person:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <EditText
-        android:id="@+id/missingPerson"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10" >
-
-        <requestFocus />
-    </EditText>
-
-    <TextView
-        android:id="@+id/TextView07"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Last seen:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <EditText
-        android:id="@+id/lastSeen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10" />
-
-    <TextView
-        android:id="@+id/TextView08"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Picture:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher" />
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save"
-        android:onClick="saveClick" />
-
-</LinearLayout>
 </ScrollView>
