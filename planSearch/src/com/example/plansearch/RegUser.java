@@ -12,8 +12,8 @@ public class RegUser extends Activity {
 	
 	EditText name;
 	EditText password;
-	EditText tlf;
-	EditText tilhor;
+	EditText phone;
+	EditText organization;
 
 	@Override
     protected void onCreate(Bundle savedInstanceState) 
@@ -26,16 +26,16 @@ public class RegUser extends Activity {
 	public void saveClick(View view)
 	{
 		name = (EditText)findViewById(R.id.name);
-		tlf = (EditText)findViewById(R.id.tlf);
-		tilhor = (EditText)findViewById(R.id.tilhor);
+		phone = (EditText)findViewById(R.id.phone);
+		organization = (EditText)findViewById(R.id.organization);
 		password = (EditText)findViewById(R.id.password);
 		
-		String error = Transmit.createUser(name.getText().toString(), password.getText().toString(), tlf.getText().toString(), tilhor.getText().toString());
+		String error = Transmit.createUser(name.getText().toString(), password.getText().toString(), phone.getText().toString(), organization.getText().toString());
 		
 		if ("".equals(error))
 		{
-			saveNr(Integer.parseInt(tlf.getText().toString()));
-			savePass(password.getText().toString());
+			saveUserID(Transmit.userID);
+			saveUserPassword(Transmit.userPassword);
 			
 			Intent i = new Intent(this,MainActivity.class); 
 			startActivity(i);
@@ -43,18 +43,18 @@ public class RegUser extends Activity {
 		
 	}
 	
-	public void saveNr(int phoneNr)
+	public void saveUserID(int userID)
 	{
 		
 		SharedPreferences prefs = this.getSharedPreferences("com.example.plansearch", Context.MODE_PRIVATE);
-		prefs.edit().putInt("phoneNr", phoneNr).commit();
+		prefs.edit().putInt("userID", userID).commit();
 	}
 	
-	public void savePass(String pass)
+	public void saveUserPassword(String userPassword)
 	{
 		
 		SharedPreferences prefs = this.getSharedPreferences("com.example.plansearch", Context.MODE_PRIVATE);
-		prefs.edit().putString("pass", pass).commit();
+		prefs.edit().putString("userPassword", userPassword).commit();
 	}
 	
 

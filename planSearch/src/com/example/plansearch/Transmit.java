@@ -215,7 +215,7 @@ import android.widget.Toast;
 		}
 		
 		// LOGIN
-		static public String login(int userPhone, String userPassword) {
+		static public String login(int userID, String userPassword) {
 			String error = "Error!";
 			int tempUserID = 0;
 			String tempUserName = "";
@@ -225,9 +225,8 @@ import android.widget.Toast;
 			// Build JSONObject Transmit
 			JSONObject jsonT = new JSONObject();
 			try {
-				jsonT.put("userPhone", userPhone);
+				jsonT.put("userID", userID);
 				jsonT.put("userPassword", userPassword);
-				jsonT.put("userLogin", 1);
 				
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -262,6 +261,7 @@ import android.widget.Toast;
 			if ( "".equals(error) ) {
 				Transmit.userID = tempUserID;
 				Transmit.userName = tempUserName;
+				Transmit.userPhone = tempUserPhone;
 				Transmit.userPassword = userPassword;
 				Transmit.userOrganization = tempUserOrganization;
 			}

@@ -20,7 +20,6 @@ public class MainActivity extends Activity {
     	
 		if(newUser())
 		{
-			System.out.println("no nr registered");
 			Intent i = new Intent(this,RegUser.class); 
 			startActivity(i);
 		}
@@ -29,21 +28,18 @@ public class MainActivity extends Activity {
 	
 	public void createClick(View view)
 	{
-		System.out.println("create click");
 		Intent i = new Intent(this,Create.class); 
 		startActivity(i); 
 	}
 	
 	public void joinClick(View view)
 	{
-		System.out.println("join click");
 		Intent i = new Intent(this,Join.class); 
 		startActivity(i); 
 	}
 
 	public void mapClick(View view)
 	{
-		System.out.println("map click");
 		Intent i = new Intent(this,MapActivity.class); 
 		startActivity(i); 
 	}
@@ -52,13 +48,13 @@ public class MainActivity extends Activity {
 	{	
 		SharedPreferences prefs = this.getSharedPreferences("com.example.plansearch", Context.MODE_PRIVATE);
 		
-		int phoneNr = prefs.getInt("phoneNr", 0);
-		String pass = prefs.getString("pass", "");
+		int userID = prefs.getInt("userID", 0);
+		String userPassword = prefs.getString("userPassword", "");
 		
-		if(phoneNr == 0)
+		if(userID == 0)
 			return true;
 		else
-			Transmit.login(phoneNr, pass);
+			Transmit.login(userID, userPassword);
 			return false;
 	}
 }
