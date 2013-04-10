@@ -101,7 +101,6 @@ import android.widget.Toast;
 				Transmit.operationName = operationName;
 				Transmit.operationPassword = operationPassword;
 				Transmit.userRole = 2;
-				Transmit.positions.clear();
 			}
 
 			return error;
@@ -260,7 +259,6 @@ import android.widget.Toast;
 				Transmit.operationStartingPoint = tempOperationStartingPoint;
 				Transmit.operationMissingPerson = tempOperationMissingPerson;
 				Transmit.operationLastSeen = tempOperationLastSeen;
-				Transmit.positions.clear();
 			}
 			
 			return error;
