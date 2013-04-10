@@ -100,7 +100,7 @@ import android.widget.Toast;
 				Transmit.operationID = tempOperationID;
 				Transmit.operationName = operationName;
 				Transmit.operationPassword = operationPassword;
-				Transmit.userRole = 2;	
+				Transmit.userRole = 2;
 			}
 
 			return error;
@@ -158,6 +158,50 @@ import android.widget.Toast;
 			}
 			
 			return error;
+		}
+		
+		// GET USER NAME
+		static public String getUserName(int userID) {
+			String error = "Error!";
+			String tempUserName = "";
+			// Build JSONObject Transmit
+			JSONObject jsonT = new JSONObject();
+			try {
+				jsonT.put("getUserID", userID);
+				
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			// Build JSONObject Receive
+			JSONObject jsonR = new JSONObject();
+			
+			try {
+				jsonR = new Connect().execute(jsonT).get();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			// Decode JSONObject Receive
+			try {
+				error = jsonR.getString("error");
+				tempUserName = jsonR.getString("userName");
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			if ( "".equals(error) ) {
+				error = tempUserName;
+			}
+
+			return error;
+			
 		}
 		
 		// JOIN OPERATION
@@ -381,6 +425,7 @@ import android.widget.Toast;
 		static public String updateOperation(String operationName, String operationPassword, String operationDescription, String operationStartingPoint, String operationMissingPerson, String operationLastSeen) {
 			String error = "Error!";
 			String tempOperationName = "";
+			String tempOperationPassword = "";
 			String tempOperationDescription = "";
 			String tempOperationStartingPoint = "";
 			String tempOperationMissingPerson = "";
@@ -418,6 +463,12 @@ import android.widget.Toast;
 			// Decode JSONObject Receive
 			try {
 				error = jsonR.getString("error");
+				tempOperationName = jsonR.getString("operationName");
+				tempOperationPassword = jsonR.getString("operationPassword");
+				tempOperationDescription = jsonR.getString("operationDescription");
+				tempOperationStartingPoint = jsonR.getString("uperationStartingPoint");
+				tempOperationMissingPerson = jsonR.getString("operationMissingPerson");
+				tempOperationLastSeen = jsonR.getString("operationLastSeen");
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
