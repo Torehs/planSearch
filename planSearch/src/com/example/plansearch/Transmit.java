@@ -380,6 +380,11 @@ import android.widget.Toast;
 		// UPDATE OPERATION
 		static public String updateOperation(String operationName, String operationPassword, String operationDescription, String operationStartingPoint, String operationMissingPerson, String operationLastSeen) {
 			String error = "Error!";
+			String tempOperationName = "";
+			String tempOperationDescription = "";
+			String tempOperationStartingPoint = "";
+			String tempOperationMissingPerson = "";
+			String tempOperationLastSeen = "";
 			
 			// Build JSONObject Transmit
 			JSONObject jsonT = new JSONObject();
@@ -419,7 +424,12 @@ import android.widget.Toast;
 			}
 			
 			if ( "".equals(error) ) {
-				
+				Transmit.operationName = tempOperationName;
+				Transmit.operationPassword = operationPassword;
+				Transmit.operationDescription = tempOperationDescription;
+				Transmit.operationStartingPoint = tempOperationStartingPoint;
+				Transmit.operationMissingPerson = tempOperationMissingPerson;
+				Transmit.operationLastSeen = tempOperationLastSeen;
 			}
 			
 			return error;

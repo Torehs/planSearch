@@ -19,7 +19,7 @@
         android:layout_above="@+id/join"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="42dp"
-        android:text="Create"
+        android:text="Create operation"
         android:onClick="createClick"  />
 
     <Button
@@ -30,16 +30,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="180dp"
         android:onClick="joinClick"
-        android:text="Join" />
-    <Button
-        android:id="@+id/map"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/map"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="80dp"
-        android:onClick="mapClick"
-        android:text="Map (tmp)" />
+        android:text="Join operation" />
 
 </RelativeLayout>
 

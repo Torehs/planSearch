@@ -37,12 +37,6 @@ public class MainActivity extends Activity {
 		Intent i = new Intent(this,Join.class); 
 		startActivity(i); 
 	}
-
-	public void mapClick(View view)
-	{
-		Intent i = new Intent(this,MapActivity.class); 
-		startActivity(i); 
-	}
 	
 	public boolean newUser()
 	{	

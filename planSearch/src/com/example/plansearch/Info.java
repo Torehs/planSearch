@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.app.Activity;
 import android.content.Intent;
 
@@ -48,10 +49,18 @@ public class Info extends Activity {
         EditText missingP = (EditText)findViewById(R.id.missingPerson);
         EditText opLastSeen = (EditText)findViewById(R.id.lastSeen);
 		
-		Transmit.updateOperation(opName.getText().toString(), opPW.getText().toString(), "", startP.getText().toString(), missingP.getText().toString(), opLastSeen.getText().toString());
+		String error = Transmit.updateOperation(opName.getText().toString(), opPW.getText().toString(), "fdas", startP.getText().toString(), missingP.getText().toString(), opLastSeen.getText().toString());
 		
-		Intent i = new Intent(this,Menu.class); 
-		startActivity(i); 
+		if ("".equals(error))
+		{
+			Intent i = new Intent(this,Menu.class); 
+			startActivity(i);
+		}
+		else
+		{
+			Toast.makeText(getApplicationContext(), error, Toast.LENGTH_SHORT).show();
+		}
+		
 	}
 
 }
