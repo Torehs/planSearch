@@ -15,26 +15,26 @@ public class Menu extends Activity {
 		setContentView(R.layout.activity_menu);
 		BackgroundWorker.Instance.Start(this);
 	}
-	
+
 	public void infoClick(View view)
 	{
-		Intent i = new Intent(this,Info.class); 
-		startActivity(i); 
+		Intent i = new Intent(this,Info.class);
+		startActivity(i);
 	}
 
 	public void statusClick(View view)
 	{
-		Intent i = new Intent(this,Status.class); 
-		startActivity(i); 
+		Intent i = new Intent(this,Status.class);
+		startActivity(i);
 	}
-	
+
 	public void mapClick(View view)
 	{
 		System.out.println("map click");
-		Intent i = new Intent(this,MapActivity.class); 
-		startActivity(i); 
+		Intent i = new Intent(this,MapActivity.class);
+		startActivity(i);
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 	    new AlertDialog.Builder(this)
@@ -47,9 +47,10 @@ public class Menu extends Activity {
 	            	Transmit.positions.clear();
 	            	Transmit.positionsQueue.clear();
 	            	BackgroundWorker.Instance.Stop();
+	            	Transmit.onExit();
 	            	Intent iMainActivity = new Intent(Menu.this, MainActivity.class);
 	                startActivity(iMainActivity);
-	                
+
 	            }
 	        }).create().show();
 	}

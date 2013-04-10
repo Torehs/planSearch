@@ -4,13 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     class="com.google.android.gms.maps.MapFragment"
+    android:background="@drawable/woods"
     android:gravity="top"
     tools:context=".MainActivity" >
-    
-   <ImageView
-                android:id="@+id/bigLogo"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"  />
                 
     <Button
         android:id="@+id/create"
