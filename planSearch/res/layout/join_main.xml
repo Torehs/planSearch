@@ -3,10 +3,23 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
+<<<<<<< HEAD
+    android:layout_height="wrap_content"
+    android:fillViewport="true" >
+    
+	<RelativeLayout
+	    android:id="@+id/RelativeLayout1"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:background="@drawable/woods"
+	    android:gravity="center"
+	    android:orientation="vertical" >
+=======
     android:layout_height="match_parent"
     android:background="@drawable/woods"
     android:gravity="center"
     android:orientation="vertical" >
+>>>>>>> 39cd4c1c3f5f2044aa681a8a133767399d72c9b1
 
         <TextView
             android:id="@+id/textView1"
