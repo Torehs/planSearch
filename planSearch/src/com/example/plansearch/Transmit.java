@@ -33,7 +33,7 @@ import android.widget.Toast;
 		static int userTeam;
 		
 		// Logs
-		static int lastLogID = 0;
+		static int lastLogID = 1;
 		static class Position {
 			int ID;
 			int userID;

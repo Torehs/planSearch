@@ -17,6 +17,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -31,6 +32,7 @@ public class MapActivity extends FragmentActivity implements LocationListener, R
 	private LocationManager locationManager = null;
 	private boolean followOnMap = true;
 	private Timer timer;
+	private boolean doWork = true;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -73,6 +75,17 @@ public class MapActivity extends FragmentActivity implements LocationListener, R
 		//NewDraw(30);
 		timer = new Timer("network-looper", true);
 		timer.scheduleAtFixedRate(new NetworkLooper(this), 1000, 10000);
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		doWork = true;
+	}
+	@Override
+	protected void onPause() {
+		super.onPause();
+		doWork = false;
 	}
 	
 	private void NewDraw(double width)
@@ -398,6 +411,8 @@ public class MapActivity extends FragmentActivity implements LocationListener, R
 		@Override
 		public void run()
 		{
+			if (!_ref.doWork)
+				return;
 			synchronized(Transmit.lock)
 			{
 				Transmit.transmitLogs();
