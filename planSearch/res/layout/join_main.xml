@@ -1,60 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"  >
-    
-	<RelativeLayout
-	    android:id="@+id/RelativeLayout1"
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    android:background="@drawable/woods"
-	    android:gravity="center"
-	    android:orientation="vertical" >
+    android:background="@drawable/woods"
+    android:gravity="center"
+    android:orientation="vertical" >
 
-	        <TextView
-	            android:id="@+id/textView1"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignParentLeft="true"
-	            android:layout_alignParentTop="true"
-	            android:text="Enter ID:"
-	            android:textAppearance="?android:attr/textAppearanceMedium" />
-	
-	        <EditText
-	            android:id="@+id/join"
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:layout_alignParentLeft="true"
-	            android:layout_below="@+id/textView1"
-	            android:ems="10" />
-	
-	        <TextView
-	            android:id="@+id/textView2"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignParentLeft="true"
-	            android:layout_below="@+id/join"
-	            android:text="Enter password: "
-	            android:textAppearance="?android:attr/textAppearanceMedium" />
-	
-	        <EditText
-	            android:id="@+id/password"
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:layout_alignParentLeft="true"
-	            android:layout_below="@+id/textView2"
-	            android:ems="10"
-	            android:inputType="textPassword" />
-	
-	        <Button
-	            android:id="@+id/button1"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignParentLeft="true"
-	            android:layout_below="@+id/password"
-	            android:onClick="joinClick"
-	            android:text="Join" />
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="Operation ID:"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-</ScrollView>
+        <EditText
+            android:id="@+id/join"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textView1"
+            android:ems="10"
+            android:inputType="number" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/join"
+            android:text="Operation password: "
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textView2"
+            android:ems="10"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/password"
+            android:onClick="joinClick"
+            android:text="Join operation" />
+   </RelativeLayout>

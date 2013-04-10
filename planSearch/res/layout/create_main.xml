@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/woods"
+    android:gravity="center"
     android:orientation="vertical" >
 
     <TextView
@@ -13,7 +14,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:text="Operation name:"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
         android:id="@+id/editText1"
@@ -32,8 +33,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/editText1"
-        android:text="Password:"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:text="Operation password:"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
         android:id="@+id/editText2"
@@ -50,6 +51,6 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/editText2"
         android:onClick="createClick"
-        android:text="Create" />
+        android:text="Create operation" />
 
 </RelativeLayout>
