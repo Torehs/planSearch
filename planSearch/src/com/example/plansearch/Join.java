@@ -24,17 +24,25 @@ public class Join extends Activity{
 		EditText id = (EditText)findViewById(R.id.join);
 		EditText pw = (EditText)findViewById(R.id.password);
 		
-		String error = Transmit.joinOperation(Integer.parseInt(id.getText().toString()), pw.getText().toString());
-		
-		if ("".equals(error))
+		if (id.getText().toString().trim().equals("") || pw.getText().toString().trim().equals(""))
 		{
-			Intent i = new Intent(this,Menu.class); 
-			startActivity(i); 
+			Toast.makeText(getApplicationContext(), "Please fill out all fields", Toast.LENGTH_SHORT).show();
 		}
 		else
 		{
-			Toast.makeText(getApplicationContext(), error, Toast.LENGTH_SHORT).show();
+			String error = Transmit.joinOperation(Integer.parseInt(id.getText().toString()), pw.getText().toString());
+			
+			if ("".equals(error))
+			{
+				Intent i = new Intent(this,Menu.class); 
+				startActivity(i);
+			}
+			else
+			{
+				Toast.makeText(getApplicationContext(), error, Toast.LENGTH_SHORT).show();
+			}	
 		}
+		
 	}
 
 }

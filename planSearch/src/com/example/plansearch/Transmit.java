@@ -108,7 +108,7 @@ import android.widget.Toast;
 		}
 		
 		// CREATE USER
-		static public String createUser(String userName, String userPassword, String userPhone, String userOrganization) {
+		static public String createUser(String userName, String userPhone, String userOrganization, String userPassword) {
 			String error = "Error!";
 			int tempUserID = 0;
 			
@@ -463,24 +463,18 @@ import android.widget.Toast;
 			// Decode JSONObject Receive
 			try {
 				error = jsonR.getString("error");
-				tempOperationName = jsonR.getString("operationName");
-				tempOperationPassword = jsonR.getString("operationPassword");
-				tempOperationDescription = jsonR.getString("operationDescription");
-				tempOperationStartingPoint = jsonR.getString("uperationStartingPoint");
-				tempOperationMissingPerson = jsonR.getString("operationMissingPerson");
-				tempOperationLastSeen = jsonR.getString("operationLastSeen");
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 			if ( "".equals(error) ) {
-				Transmit.operationName = tempOperationName;
+				Transmit.operationName = operationName;
 				Transmit.operationPassword = operationPassword;
-				Transmit.operationDescription = tempOperationDescription;
-				Transmit.operationStartingPoint = tempOperationStartingPoint;
-				Transmit.operationMissingPerson = tempOperationMissingPerson;
-				Transmit.operationLastSeen = tempOperationLastSeen;
+				Transmit.operationDescription = operationDescription;
+				Transmit.operationStartingPoint = operationStartingPoint;
+				Transmit.operationMissingPerson = operationMissingPerson;
+				Transmit.operationLastSeen = operationLastSeen;
 			}
 			
 			return error;

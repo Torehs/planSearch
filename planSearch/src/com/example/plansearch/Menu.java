@@ -44,10 +44,9 @@ public class Menu extends Activity {
 	        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
 	            public void onClick(DialogInterface arg0, int arg1) {
-	            	Transmit.positions.clear();
-	            	Transmit.positionsQueue.clear();
 	            	BackgroundWorker.Instance.Stop();
 	            	Transmit.onExit();
+	            	finish();
 	            	Intent iMainActivity = new Intent(Menu.this, MainActivity.class);
 	                startActivity(iMainActivity);
 

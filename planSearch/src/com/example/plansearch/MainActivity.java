@@ -2,12 +2,15 @@ package com.example.plansearch;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -29,13 +32,13 @@ public class MainActivity extends Activity {
 	public void createClick(View view)
 	{
 		Intent i = new Intent(this,Create.class); 
-		startActivity(i); 
+		startActivity(i);
 	}
 	
 	public void joinClick(View view)
 	{
 		Intent i = new Intent(this,Join.class); 
-		startActivity(i); 
+		startActivity(i);
 	}
 	
 	public boolean newUser()
@@ -50,5 +53,10 @@ public class MainActivity extends Activity {
 		else
 			Transmit.login(userID, userPassword);
 			return false;
+	}
+	
+	@Override
+	public void onBackPressed() {
+	        finish();
 	}
 }
