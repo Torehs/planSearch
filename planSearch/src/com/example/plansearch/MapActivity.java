@@ -373,7 +373,7 @@ public class MapActivity extends FragmentActivity implements LocationListener, R
 		}
 		if (lastPos != null)
 		{
-			DrawLines(20, 0x55FF0000, lastPos, pos);
+			//DrawLines(20, 0x55FF0000, lastPos, pos);
 		}
 		lastPos = pos;
 		synchronized (Transmit.lock)
