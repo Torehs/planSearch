@@ -383,7 +383,7 @@ public class MapActivity extends FragmentActivity implements LocationListener, R
 		synchronized (Transmit.lock)
 		{
 			//Transmit.positions.add(new Position(0, 0, true, pos.latitude, pos.longitude, 0));
-			Transmit.positionsQueue.add(new Position(0, 0, true, pos.latitude, pos.longitude, 0));
+			Transmit.positionsQueue.add(new Position(0, Transmit.userID, true, pos.latitude, pos.longitude, (int)(System.currentTimeMillis() / 1000L)));
 		}
 	}
 	@Override

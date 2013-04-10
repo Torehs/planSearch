@@ -1,5 +1,7 @@
 package com.example.plansearch.Coordinates;
 
+import java.util.Locale;
+
 public class UTM
 {
 	public UTM(String str)
@@ -14,7 +16,7 @@ public class UTM
 	@Override
 	public String toString()
 	{
-		return String.format("%s %s %f %f", LongtitudeBand, LatitudeBand, Easting, Northing);
+		return String.format(Locale.US, "%s %s %f %f", LongtitudeBand, LatitudeBand, Easting, Northing);
 	}
 	public UTM(int longtitudeBand, char latitudeBand, double easting, double northing)
 	{
