@@ -7,14 +7,15 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class RegUser extends Activity {
 	
 	EditText name;
-	EditText password;
 	EditText phone;
 	EditText organization;
-
+	EditText password;
+	
 	@Override
     protected void onCreate(Bundle savedInstanceState) 
 	{
@@ -30,15 +31,27 @@ public class RegUser extends Activity {
 		organization = (EditText)findViewById(R.id.organization);
 		password = (EditText)findViewById(R.id.password);
 		
-		String error = Transmit.createUser(name.getText().toString(), password.getText().toString(), phone.getText().toString(), organization.getText().toString());
-		
-		if ("".equals(error))
+		if (name.getText().toString().trim().equals("") || phone.getText().toString().trim().equals("") || organization.getText().toString().trim().equals("") || password.getText().toString().trim().equals(""))
 		{
-			saveUserID(Transmit.userID);
-			saveUserPassword(Transmit.userPassword);
+			Toast.makeText(getApplicationContext(), "Please fill out all fields", Toast.LENGTH_SHORT).show();
+		}
+		else
+		{
+			String error = Transmit.createUser(name.getText().toString(), phone.getText().toString(), organization.getText().toString(), password.getText().toString());
 			
-			Intent i = new Intent(this,MainActivity.class); 
-			startActivity(i);
+			if ("".equals(error))
+			{
+				saveUserID(Transmit.userID);
+				saveUserPassword(Transmit.userPassword);
+				
+				Intent i = new Intent(this,MainActivity.class); 
+				startActivity(i);
+				finish();
+			}
+			else
+			{
+				Toast.makeText(getApplicationContext(), error, Toast.LENGTH_SHORT).show();
+			}
 		}
 		
 	}

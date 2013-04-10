@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -31,13 +32,13 @@ public class MainActivity extends Activity {
 	public void createClick(View view)
 	{
 		Intent i = new Intent(this,Create.class); 
-		startActivity(i); 
+		startActivity(i);
 	}
 	
 	public void joinClick(View view)
 	{
 		Intent i = new Intent(this,Join.class); 
-		startActivity(i); 
+		startActivity(i);
 	}
 	
 	public boolean newUser()
@@ -56,6 +57,6 @@ public class MainActivity extends Activity {
 	
 	@Override
 	public void onBackPressed() {
-		// Do nothing
+	        finish();
 	}
 }
