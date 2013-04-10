@@ -13,6 +13,7 @@ public class Menu extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_menu);
+		BackgroundWorker.Instance.Start(this);
 	}
 	
 	public void infoClick(View view)
@@ -45,8 +46,10 @@ public class Menu extends Activity {
 	            public void onClick(DialogInterface arg0, int arg1) {
 	            	Transmit.positions.clear();
 	            	Transmit.positionsQueue.clear();
+	            	BackgroundWorker.Instance.Stop();
 	            	Intent iMainActivity = new Intent(Menu.this, MainActivity.class);
 	                startActivity(iMainActivity);
+	                
 	            }
 	        }).create().show();
 	}

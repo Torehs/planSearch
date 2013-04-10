@@ -23,12 +23,10 @@ import android.view.*;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.*;
 
-public class MapActivity extends FragmentActivity implements LocationListener, Runnable {
+public class MapActivity extends FragmentActivity implements LocationChangedListener, PulseListener, Runnable {
 	private GoogleMap map = null;
-	private LocationManager locationManager = null;
 	private boolean followOnMap = true;
-	private Timer timer;
-	private boolean doWork = true;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -52,10 +50,7 @@ public class MapActivity extends FragmentActivity implements LocationListener, R
 		map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 		//map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
 		map.setMyLocationEnabled(true);
-		
-		
-		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-	    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, this);        
+		        
 		
 		
 //		DrawLines(10,0x55FF0000,
@@ -69,19 +64,20 @@ public class MapActivity extends FragmentActivity implements LocationListener, R
 		map.moveCamera(CameraUpdateFactory.zoomBy(12f));
 		
 		//NewDraw(30);
-		timer = new Timer("network-looper", true);
-		timer.scheduleAtFixedRate(new NetworkLooper(this), 1000, 10000);
+		
 	}
 	
 	@Override
 	protected void onResume() {
 		super.onResume();
-		doWork = true;
+		BackgroundWorker.Instance.AddLocationChangeListener(this);
+		BackgroundWorker.Instance.AddPulseListener(this);
 	}
 	@Override
 	protected void onPause() {
 		super.onPause();
-		doWork = false;
+		BackgroundWorker.Instance.RemoveLocationChangeListener(this);
+		BackgroundWorker.Instance.RemovePulseListener(this);
 	}
 	
 	private void NewDraw(double width)
@@ -362,61 +358,13 @@ public class MapActivity extends FragmentActivity implements LocationListener, R
 	    followOnMap = checked;
 	}
 	
-	private LatLng lastPos; 
 	@Override
-	public void onLocationChanged(Location location) {
-		LatLng pos = new LatLng(location.getLatitude(), location.getLongitude());
+	public void LocationChanged(LatLng pos) {
 		if (followOnMap)
 		{
 			CameraPosition cam = map.getCameraPosition();
 			map.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(pos, cam.zoom, cam.tilt, cam.bearing)));
 		}
-		if (lastPos != null)
-		{
-			//DrawLines(20, 0x55FF0000, lastPos, pos);
-		}
-		lastPos = pos;
-		synchronized (Transmit.lock)
-		{
-			//Transmit.positions.add(new Position(0, 0, true, pos.latitude, pos.longitude, 0));
-			Transmit.positionsQueue.add(new Position(0, Transmit.userID, true, pos.latitude, pos.longitude, (int)(System.currentTimeMillis() / 1000L)));
-		}
-	}
-	@Override
-	public void onProviderDisabled(String provider) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void onProviderEnabled(String provider) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void onStatusChanged(String provider, int status, Bundle extras) {
-		// TODO Auto-generated method stub
-		
-	}
-	private class NetworkLooper extends TimerTask
-	{
-		private MapActivity _ref;
-		public NetworkLooper(MapActivity ref)
-		{
-			_ref = ref;
-		}
-		@Override
-		public void run()
-		{
-			if (!_ref.doWork)
-				return;
-			synchronized(Transmit.lock)
-			{
-				Transmit.transmitLogs();
-				Transmit.receiveLogs();
-			}
-			runOnUiThread(_ref);
-		}
-		
 	}
 	
 	private SparseArray<Paths> userPaths = new SparseArray<Paths>();
@@ -432,41 +380,7 @@ public class MapActivity extends FragmentActivity implements LocationListener, R
 		public List<LatLng> positions = new ArrayList<LatLng>();
 		public int LastDrawnTo = 0;
 	}
-	//To update map with new coordinates from other users
-	@Override
-	public void run()
-	{
-		synchronized(Transmit.positions)
-		{
-			List<Position> pos = Transmit.positions;
-			for (;nextIndex < pos.size();nextIndex++)
-			{
-				Position step = pos.get(nextIndex);
-				Paths paths = userPaths.get(step.userID);
-				if (paths == null)
-					paths = new Paths();
-				userPaths.append(step.userID, paths);
-				if (!step.logType)
-				{
-					paths.StartNew = true;
-				}
-				else
-				{
-					Path path;
-					if (paths.StartNew || paths.Paths.size() == 0)
-					{
-						path = new Path();
-						paths.Paths.add(path);
-						paths.StartNew = false;
-					}
-					else
-						path = paths.Paths.get(paths.Paths.size()-1);
-					path.positions.add(new LatLng(step.latitude,step.longitude));
-				}
-			}
-		}
-		DrawFromPaths();
-	}
+	
 	private void DrawFromPaths()
 	{
 		for(int i = 0; i < userPaths.size();i++)
@@ -497,5 +411,44 @@ public class MapActivity extends FragmentActivity implements LocationListener, R
 				
 			}
 		}
+	}
+
+	@Override
+	public void Pulse() {
+		runOnUiThread(this);
+	}
+	//To update map with new coordinates from users
+	@Override
+	public void run() {
+		synchronized(Transmit.positions)
+		{
+			List<Position> pos = Transmit.positions;
+			for (;nextIndex < pos.size();nextIndex++)
+			{
+				Position step = pos.get(nextIndex);
+				Paths paths = userPaths.get(step.userID);
+				if (paths == null)
+					paths = new Paths();
+				userPaths.append(step.userID, paths);
+				if (!step.logType)
+				{
+					paths.StartNew = true;
+				}
+				else
+				{
+					Path path;
+					if (paths.StartNew || paths.Paths.size() == 0)
+					{
+						path = new Path();
+						paths.Paths.add(path);
+						paths.StartNew = false;
+					}
+					else
+						path = paths.Paths.get(paths.Paths.size()-1);
+					path.positions.add(new LatLng(step.latitude,step.longitude));
+				}
+			}
+		}
+		DrawFromPaths();
 	}
 }
