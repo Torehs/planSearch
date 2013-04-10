@@ -11,6 +11,7 @@ import android.widget.EditText;
 public class RegUser extends Activity {
 	
 	EditText name;
+	EditText password;
 	EditText tlf;
 	EditText tilhor;
 
@@ -27,12 +28,18 @@ public class RegUser extends Activity {
 		name = (EditText)findViewById(R.id.name);
 		tlf = (EditText)findViewById(R.id.tlf);
 		tilhor = (EditText)findViewById(R.id.tilhor);
+		password = (EditText)findViewById(R.id.password);
 		
-		saveNr(Integer.parseInt(tlf.getText().toString()));
+		String error = Transmit.createUser(name.getText().toString(), password.getText().toString(), tlf.getText().toString(), tilhor.getText().toString());
 		
-		System.out.println("save click");
-		Intent i = new Intent(this,MainActivity.class); 
-		startActivity(i);
+		if ("".equals(error))
+		{
+			saveNr(Integer.parseInt(tlf.getText().toString()));
+			savePass(password.getText().toString());
+			
+			Intent i = new Intent(this,MainActivity.class); 
+			startActivity(i);
+		}
 		
 	}
 	
@@ -41,6 +48,13 @@ public class RegUser extends Activity {
 		
 		SharedPreferences prefs = this.getSharedPreferences("com.example.plansearch", Context.MODE_PRIVATE);
 		prefs.edit().putInt("phoneNr", phoneNr).commit();
+	}
+	
+	public void savePass(String pass)
+	{
+		
+		SharedPreferences prefs = this.getSharedPreferences("com.example.plansearch", Context.MODE_PRIVATE);
+		prefs.edit().putString("pass", pass).commit();
 	}
 	
 

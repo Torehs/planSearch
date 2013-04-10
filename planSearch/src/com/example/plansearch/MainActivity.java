@@ -53,10 +53,12 @@ public class MainActivity extends Activity {
 		SharedPreferences prefs = this.getSharedPreferences("com.example.plansearch", Context.MODE_PRIVATE);
 		
 		int phoneNr = prefs.getInt("phoneNr", 0);
+		String pass = prefs.getString("pass", "");
 		
 		if(phoneNr == 0)
 			return true;
 		else
+			Transmit.login(phoneNr, pass);
 			return false;
 	}
 }
