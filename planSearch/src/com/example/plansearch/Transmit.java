@@ -54,9 +54,23 @@ import android.widget.Toast;
 		static ArrayList<Position> positions = new ArrayList<Position>();
 		static ArrayList<Position> positionsQueue = new ArrayList<Position>();
 		
-		// Events
-		static int lastEventID;
-		static ArrayList<String> events = new ArrayList<String>();
+		// Operation members
+		static class Member {
+			int memberID;
+			String memberName;
+			String memberPhone;
+			String memberOrganization;
+			String memberStatus;
+			
+			public Member(int memberID, String memberName, String memberPhone, String memberOrganization, String memberStatus) {
+				this.memberID = memberID;
+				this.memberName = memberName;
+				this.memberPhone = memberPhone;
+				this.memberOrganization = memberOrganization;
+				this.memberStatus = memberStatus;
+			}
+		}
+		static ArrayList<Member> members = new ArrayList<Member>();
 		
 		// CREATE OPERATION
 		static public String createOperation(String operationName, String operationPassword) {
@@ -158,6 +172,60 @@ import android.widget.Toast;
 			}
 			
 			return error;
+		}
+		
+		// GET OPERATION MEMBERS
+		static public String getOperationMembers(int operationID) {
+			String error = "Error!";
+			JSONArray jsonMem = new JSONArray();
+			// Build JSONObject Transmit
+			JSONObject jsonT = new JSONObject();
+			try {
+				jsonT.put("operationID", operationID);
+				jsonT.put("getOperationMembers", 1);
+				
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			// Build JSONObject Receive
+			JSONObject jsonR = new JSONObject();
+			
+			try {
+				jsonR = new Connect().execute(jsonT).get();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			// Decode JSONObject Receive
+			try {
+				error = jsonR.getString("error");
+				jsonMem = jsonR.getJSONArray("operationMembers");
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			if ( "".equals(error) ) {
+				for (int i = 0; i<jsonMem.length(); i++) {
+					try {
+						JSONObject tmp = jsonMem.getJSONObject(i);
+						members.add(new Member(tmp.getInt("memberID"), tmp.getString("memberName"), tmp.getString("memberPhone"), tmp.getString("memberOrganization"), tmp.getString("memberStatus")));
+						Transmit.lastLogID = tmp.getInt("ID");
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+
+			return error;
+			
 		}
 		
 		// GET USER NAME
@@ -424,12 +492,6 @@ import android.widget.Toast;
 		// UPDATE OPERATION
 		static public String updateOperation(String operationName, String operationPassword, String operationDescription, String operationStartingPoint, String operationMissingPerson, String operationLastSeen) {
 			String error = "Error!";
-			String tempOperationName = "";
-			String tempOperationPassword = "";
-			String tempOperationDescription = "";
-			String tempOperationStartingPoint = "";
-			String tempOperationMissingPerson = "";
-			String tempOperationLastSeen = "";
 			
 			// Build JSONObject Transmit
 			JSONObject jsonT = new JSONObject();
@@ -484,7 +546,6 @@ import android.widget.Toast;
 		{
 			Transmit.positions.clear();
 			Transmit.positionsQueue.clear();
-			Transmit.lastEventID = 1;
 			Transmit.lastLogID = 1;
 			Transmit.operationID = 0;
 			Transmit.operationName = "";

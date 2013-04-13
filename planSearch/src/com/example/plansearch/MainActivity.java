@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
@@ -21,7 +22,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
     	setContentView(R.layout.activity_main);
     	
-		if(newUser())
+    	if(newUser())
 		{
 			Intent i = new Intent(this,RegUser.class); 
 			startActivity(i);
