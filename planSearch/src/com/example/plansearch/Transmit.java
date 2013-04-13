@@ -22,6 +22,7 @@ import android.widget.Toast;
 		static String operationStartingPoint;
 		static String operationMissingPerson;
 		static String operationLastSeen;
+		static int operationMemberID;
 		
 		// User
 		static int userID;
@@ -76,6 +77,7 @@ import android.widget.Toast;
 		static public String createOperation(String operationName, String operationPassword) {
 			String error = "Error!";
 			int tempOperationID = 0;
+			int tempOperationMemberID = 0;
 			// Build JSONObject Transmit
 			JSONObject jsonT = new JSONObject();
 			try {
@@ -105,6 +107,7 @@ import android.widget.Toast;
 			try {
 				error = jsonR.getString("error");
 				tempOperationID = jsonR.getInt("operationID");
+				tempOperationMemberID = jsonR.getInt("memberID");
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -114,6 +117,7 @@ import android.widget.Toast;
 				Transmit.operationID = tempOperationID;
 				Transmit.operationName = operationName;
 				Transmit.operationPassword = operationPassword;
+				Transmit.operationMemberID = tempOperationMemberID;
 				Transmit.userRole = 2;
 			}
 
@@ -280,6 +284,7 @@ import android.widget.Toast;
 			String tempOperationStartingPoint = "";
 			String tempOperationMissingPerson = "";
 			String tempOperationLastSeen = "";
+			int tempOperationMemberID = 0;
 			
 			// Build JSONObject Transmit
 			JSONObject jsonT = new JSONObject();
@@ -314,6 +319,7 @@ import android.widget.Toast;
 				tempOperationStartingPoint = jsonR.getString("startingPoint");
 				tempOperationMissingPerson = jsonR.getString("missingPerson");
 				tempOperationLastSeen = jsonR.getString("lastSeen");
+				tempOperationMemberID = jsonR.getInt("memberID");
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -327,6 +333,7 @@ import android.widget.Toast;
 				Transmit.operationStartingPoint = tempOperationStartingPoint;
 				Transmit.operationMissingPerson = tempOperationMissingPerson;
 				Transmit.operationLastSeen = tempOperationLastSeen;
+				Transmit.operationMemberID = tempOperationMemberID;
 			}
 			
 			return error;
@@ -439,6 +446,48 @@ import android.widget.Toast;
 			return error;
 		}
 		
+		// SET MEMBER STATUS
+		static public String setMemberStatus(String memberStatus) {
+			String error = "Error!";
+			
+			// Build JSONObject Transmit
+			JSONObject jsonT = new JSONObject();
+			try {
+				jsonT.put("memberID", Transmit.operationMemberID);
+				jsonT.put("setMemberStatus", memberStatus);
+				
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			// Build JSONObject Receive
+			JSONObject jsonR = new JSONObject();
+			
+			try {
+				jsonR = new Connect().execute(jsonT).get();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			// Decode JSONObject Receive
+			try {
+				error = jsonR.getString("error");
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			if ( "".equals(error) ) {
+			}
+			
+			return error;
+		}
+		
 		// TRANSMIT LOGS
 		static public String transmitLogs() {
 			String error = "Error!";
@@ -542,6 +591,7 @@ import android.widget.Toast;
 			return error;
 		}
 		
+		// ON EXIT CLEAR DATA
 		static public void onExit()
 		{
 			Transmit.positions.clear();

@@ -24,9 +24,19 @@
         android:layout_marginTop="28dp"
         android:text="Map"
         android:onClick="mapClick" />
-
+    
     <Button
         android:id="@+id/Button02"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/Button03"
+        android:layout_below="@+id/Button03"
+        android:layout_marginTop="28dp"
+        android:text="Members"
+        android:onClick="membersClick" />
+
+    <Button
+        android:id="@+id/Button03"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/Button01"
@@ -36,7 +46,7 @@
         android:onClick="statusClick" />
 
     <Button
-        android:id="@+id/Button03"
+        android:id="@+id/Button04"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/Button02"

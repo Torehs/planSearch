@@ -19,6 +19,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="104dp"
         android:gravity="center"
+        android:onClick="clickHeading"
         android:text="Heading to search area" />
 
     <Button
@@ -29,6 +30,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
         android:gravity="center"
+        android:onClick="clickSearching"
         android:text="Searching area" />
 
     <Button
@@ -39,6 +41,18 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="32dp"
         android:gravity="center"
+        android:onClick="clickDone"
         android:text="Done searching area" />
+
+    <Button
+        android:id="@+id/Button03"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Button02"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:onClick="clickMedical"
+        android:text="Need medical assistance!" />
 
 </RelativeLayout>

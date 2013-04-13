@@ -22,6 +22,12 @@ public class Menu extends Activity {
 		startActivity(i);
 	}
 
+	public void membersClick(View view)
+	{
+		Intent i = new Intent(this,Members.class);
+		startActivity(i);
+	}
+
 	public void statusClick(View view)
 	{
 		Intent i = new Intent(this,Status.class);
