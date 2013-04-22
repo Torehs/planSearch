@@ -27,7 +27,7 @@ public class Status extends Activity {
 	{
 		String error = Transmit.setMemberStatus("Heading to search area");
 		
-		if ("".equals(error))
+		if ("ok".equals(error))
 		{
 			Toast.makeText(getApplicationContext(), "Status updated", Toast.LENGTH_SHORT).show();
 		}
@@ -43,7 +43,7 @@ public class Status extends Activity {
 	{
 		String error = Transmit.setMemberStatus("Searching area");
 		
-		if ("".equals(error))
+		if ("ok".equals(error))
 		{
 			Toast.makeText(getApplicationContext(), "Status updated", Toast.LENGTH_SHORT).show();
 		}
@@ -59,7 +59,7 @@ public class Status extends Activity {
 	{
 		String error = Transmit.setMemberStatus("Done searching area");
 		
-		if ("".equals(error))
+		if ("ok".equals(error))
 		{
 			Toast.makeText(getApplicationContext(), "Status updated", Toast.LENGTH_SHORT).show();
 		}
@@ -75,7 +75,7 @@ public class Status extends Activity {
 	{
 		String error = Transmit.setMemberStatus("Need medical assistance!");
 		
-		if ("".equals(error))
+		if ("ok".equals(error))
 		{
 			Toast.makeText(getApplicationContext(), "Status updated", Toast.LENGTH_SHORT).show();
 		}

@@ -23,16 +23,21 @@ public class Members extends Activity {
         
         String membersString = "";
         
-        for (int i = 0; i < Transmit.members.size(); i++)
-        {
-        	membersString = Transmit.members.get(i).memberName+"\n"+
-        	Transmit.members.get(i).memberPhone+"\n"+Transmit.members.get(i).memberOrganization+"\n"+
-        	Transmit.members.get(i).memberStatus+"\n\n"+membersString;
+        if ("ok".equals(error)) {
+            for (int i = 0; i < Transmit.members.size(); i++)
+            {
+            	membersString = Transmit.members.get(i).memberName+"\n"+
+            	Transmit.members.get(i).memberPhone+"\n"+Transmit.members.get(i).memberOrganization+"\n"+
+            	Transmit.members.get(i).memberStatus+"\n\n"+membersString;
+            }
         }
+		else
+		{
+			Toast.makeText(getApplicationContext(), error, Toast.LENGTH_SHORT).show();
+		}
         
 		operationMembers.setText(membersString);
         
-
 	}
 
 }

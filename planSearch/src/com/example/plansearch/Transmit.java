@@ -113,7 +113,7 @@ import android.widget.Toast;
 				e.printStackTrace();
 			}
 			
-			if ( "".equals(error) ) {
+			if ( "ok".equals(error) ) {
 				Transmit.operationID = tempOperationID;
 				Transmit.operationName = operationName;
 				Transmit.operationPassword = operationPassword;
@@ -165,7 +165,7 @@ import android.widget.Toast;
 				e.printStackTrace();
 			}
 			
-			if ( "".equals(error) ) {
+			if ( "ok".equals(error) ) {
 				Transmit.userID = tempUserID;
 				Transmit.userName = userName;
 				Transmit.userPassword = userPassword;
@@ -215,7 +215,7 @@ import android.widget.Toast;
 				e.printStackTrace();
 			}
 			
-			if ( "".equals(error) ) {
+			if ( "ok".equals(error) ) {
 				for (int i = 0; i<jsonMem.length(); i++) {
 					try {
 						JSONObject tmp = jsonMem.getJSONObject(i);
@@ -268,7 +268,7 @@ import android.widget.Toast;
 				e.printStackTrace();
 			}
 			
-			if ( "".equals(error) ) {
+			if ( "ok".equals(error) ) {
 				error = tempUserName;
 			}
 
@@ -325,7 +325,7 @@ import android.widget.Toast;
 				e.printStackTrace();
 			}
 			
-			if ( "".equals(error) ) {
+			if ( "ok".equals(error) ) {
 				Transmit.operationID = operationID;
 				Transmit.operationName = tempOperationName;
 				Transmit.operationPassword = operationPassword;
@@ -383,7 +383,7 @@ import android.widget.Toast;
 				e.printStackTrace();
 			}
 			
-			if ( "".equals(error) ) {
+			if ( "ok".equals(error) ) {
 				Transmit.userID = tempUserID;
 				Transmit.userName = tempUserName;
 				Transmit.userPhone = tempUserPhone;
@@ -430,7 +430,7 @@ import android.widget.Toast;
 				e.printStackTrace();
 			}
 			
-			if ( "".equals(error) ) {
+			if ( "ok".equals(error) ) {
 				for (int i = 0; i<jsonPos.length(); i++) {
 					try {
 						JSONObject tmp = jsonPos.getJSONObject(i);
@@ -482,7 +482,7 @@ import android.widget.Toast;
 				e.printStackTrace();
 			}
 			
-			if ( "".equals(error) ) {
+			if ( "ok".equals(error) ) {
 			}
 			
 			return error;
@@ -531,7 +531,7 @@ import android.widget.Toast;
 				e.printStackTrace();
 			}
 			
-			if ( "".equals(error) ) {
+			if ( "ok".equals(error) ) {
 				positionsQueue.clear();
 			}
 
@@ -579,7 +579,7 @@ import android.widget.Toast;
 				e.printStackTrace();
 			}
 			
-			if ( "".equals(error) ) {
+			if ( "ok".equals(error) ) {
 				Transmit.operationName = operationName;
 				Transmit.operationPassword = operationPassword;
 				Transmit.operationDescription = operationDescription;

@@ -32,10 +32,14 @@ public class Create extends Activity {
 		{
 			String error = Transmit.createOperation(name.getText().toString(), pw.getText().toString());
 			
-			if ("".equals(error))
+			if ("ok".equals(error))
 			{
-				Intent i = new Intent(this,Info.class); 
+				finish();
+				Intent i = new Intent(this,Info.class);
+            	i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
+            	i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				startActivity(i);
+
 			}
 			else
 			{

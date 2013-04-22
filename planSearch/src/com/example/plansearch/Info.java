@@ -48,17 +48,26 @@ public class Info extends Activity {
         EditText startP = (EditText)findViewById(R.id.startingPoint);
         EditText missingP = (EditText)findViewById(R.id.missingPerson);
         EditText opLastSeen = (EditText)findViewById(R.id.lastSeen);
+        
+		EditText pw = (EditText)findViewById(R.id.password);
 		
-		String error = Transmit.updateOperation(opName.getText().toString(), opPW.getText().toString(), "fdas", startP.getText().toString(), missingP.getText().toString(), opLastSeen.getText().toString());
-		
-		if ("".equals(error))
+		if (opName.getText().toString().trim().equals("") || opPW.getText().toString().trim().equals("")|| startP.getText().toString().trim().equals("")|| missingP.getText().toString().trim().equals("")|| opLastSeen.getText().toString().trim().equals(""))
 		{
-			Intent i = new Intent(this,Menu.class); 
-			startActivity(i);
+			Toast.makeText(getApplicationContext(), "Please fill out all fields", Toast.LENGTH_SHORT).show();
 		}
 		else
 		{
-			Toast.makeText(getApplicationContext(), error, Toast.LENGTH_SHORT).show();
+			String error = Transmit.updateOperation(opName.getText().toString(), opPW.getText().toString(), "fdas", startP.getText().toString(), missingP.getText().toString(), opLastSeen.getText().toString());
+			
+			if ("ok".equals(error))
+			{
+				Intent i = new Intent(this,Menu.class); 
+				startActivity(i);
+			}
+			else
+			{
+				Toast.makeText(getApplicationContext(), error, Toast.LENGTH_SHORT).show();
+			}
 		}
 		
 	}

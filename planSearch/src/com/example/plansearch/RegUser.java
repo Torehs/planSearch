@@ -39,7 +39,7 @@ public class RegUser extends Activity {
 		{
 			String error = Transmit.createUser(name.getText().toString(), phone.getText().toString(), organization.getText().toString(), password.getText().toString());
 			
-			if ("".equals(error))
+			if ("ok".equals(error))
 			{
 				saveUserID(Transmit.userID);
 				saveUserPassword(Transmit.userPassword);
